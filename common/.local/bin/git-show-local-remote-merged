@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# Show local branches that have been merged on remote.
+comm -12 <(git branch | awk '{print($1)}') <(git branch -r --merged | awk '{print($1)}' | awk -F \\/ '{print($2)}')

@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+read -p "GH Repo URL: " GHREPO
+
+if [ -z $GHREPO ]; then
+	echo "Output folder required."
+	exit 1
+fi
+
+read -p "Output folder (default .): " OUTPUTFOLDER
+
+if [ -z $OUTPUTFOLDER ]; then
+	OUTPUTFOLDER="."
+fi
+
+echo "To add a file, put the target filename / directory's path, relative to the repo's root. For example:"
+
+echo "    Download my_repo/src/test.txt and my_repo/src/dir"
+echo ""
+echo "    GH Repo URL: https://github.com/me/my_repo"
+echo "    Output folder (default .): "
+echo "    Add: src/test.txt"
+echo "    Add: src/dir"
+echo ""
+echo "To stop adding files, leave blank."
+
+read -p "Add: " INP
+
+FILES=()
+
+while [ ! -z $INP ]
+do
+	FILES+=($INP)
+	read -p "Add: " INP
+done
+
+echo ""
+echo "Copy and paste (doesn't work in the script for some reason): "
+echo "-------------------------------------------------------------"
+
+if [ ! -d "${OUTPUTFOLDER}" ]; then
+	echo mkdir $OUTPUTFOLDER
+fi
+
+echo git clone --filter=blob:none --no-checkout --depth 1 --sparse $GHREPO $OUTPUTFOLDER
+
+echo cd $OUTPUTFOLDER
+
+for st in "${FILES[@]}"
+do
+	echo git sparse-checkout add $st
+done
+
+echo git checkout

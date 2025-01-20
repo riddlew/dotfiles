@@ -1,0 +1,215 @@
+# Note to future self:
+# Keep the spaces inside of the parenthesis. This prevents a space showing up
+# when it shouldn't (such as only adding a space if the version number is
+# detected). This prevents showing things like [php ] when php is not installed,
+# and therefore the version cannot be detected.
+
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Inserts a blank line between shell prompts
+add_newline = true
+continuation_prompt = '... '
+
+[aws]
+symbol = "aws"
+format = '[\[$symbol( $profile)( \($region\))( \[$duration\])\]]($style) '
+
+[azure]
+symbol = "azure"
+format = '[\[$symbol( $subscription)\]]($style) '
+
+[bun]
+symbol = "bun"
+format = '[\[$symbol( $version)\]]($style) '
+
+[c]
+symbol = "C"
+format = '[\[$symbol( $version(-$name))\]]($style) '
+
+[character]
+# success_symbol = '[](bold green)' 
+success_symbol = '[>](bold white)' 
+error_symbol = '[>](bold white)' 
+vimcmd_symbol = '[-](bold purple)' 
+
+# only supported in fish
+vimcmd_replace_one_symbol = '[r](bold red)' 
+vimcmd_replace_symbol = '[R](bold red)' 
+vimcmd_visual_symbol = '[R](bold purple)' 
+
+[conda]
+symbol = "conda"
+format = '[\[$symbol( $environment)\]]($style) '
+
+[container]
+symbol = "container"
+format = '[\[$symbol( \($name\))\]]($style) '
+
+[cmake]
+symbol = "cmake"
+format = '[\[$symbol( $version)\]]($style) '
+
+[directory]
+read_only = " RO"
+truncation_length = 6
+truncation_symbol = '../'
+truncate_to_repo = false
+
+[docker_context]
+symbol = "Docker CTX"
+format = '[\[$symbol $context\]]($style) '
+disabled = true
+
+[dotnet]
+symbol = ".NET"
+format = '[\[$symbol( $version)( target $tfm)\]]($style) '
+
+[elixir]
+symbol = "exs"
+format = '[\[$symbol( $version \(OTP $otp_version\))\]]($style) '
+
+[elm]
+symbol = "elm"
+format = '[\[$symbol( $version)\]]($style) '
+
+[fennel]
+symbol = "fnl"
+format = '[\[$symbol( $version)\]]($style) '
+
+[fossil_branch]
+symbol = ""
+# format = '[$symbol $branch]($style) '
+format = '[\($branch\)]($style) '
+
+[gcloud]
+symbol = "gcloud "
+format = '[\[$symbol $account(@$domain)(\($region\))\]]($style) '
+
+[git_branch]
+symbol = ""
+# format = '[$symbol $branch(:$remote_branch)]($style) '
+format = '[\($branch(:$remote_branch)\)]($style) '
+
+# [git_metrics]
+# disabled = false
+
+[git_status]
+conflicted = '='
+ahead = '⇡'
+behind = '⇣'
+diverged = '⇕'
+up_to_date = ''
+untracked = '?'
+stashed = '\$'
+modified = '!'
+staged = '+'
+renamed = '»'
+deleted = '✘'
+typechanged = ""
+
+[golang]
+symbol = "go"
+format = '[\[$symbol( $version )\]]($style) '
+
+[gradle]
+symbol = "gradle"
+format = '[\[$symbol( $version )\]]($style) '
+
+[guix_shell]
+symbol = "guix"
+format = '[\[$symbol\]]($style) '
+
+[hg_branch]
+symbol = ""
+# format = '[$symbol $branch(:$topic)]($style) '
+format = '[\($branch(:$topic)\)]($style) '
+
+[hostname]
+ssh_symbol = '@'
+style = 'green'
+format = '[$ssh_symbol$hostname]($style) '
+
+[java]
+symbol = "java"
+format = '[\[${symbol}( ${version})\]]($style) '
+
+[kotlin]
+symbol = "kt"
+format = '[\[$symbol( $version)\]]($style) '
+
+[lua]
+symbol = "lua"
+format = '[\[$symbol( $version)\]]($style) '
+
+[meson]
+symbol = "meson"
+format = '[\[$symbol( $project)\]]($style) '
+
+[nim]
+symbol = "nim"
+format = '[\[$symbol( $version)\]]($style) '
+
+[nix_shell]
+symbol = "nix"
+format = '[\[$symbol( $state)( \($name\))\]]($style) '
+
+[nodejs]
+symbol = "node"
+format = '[\[$symbol( $version)\]]($style) '
+
+[opa]
+symbol = "opa"
+format = '[\[$symbol( $version)\]]($style) '
+
+[package]
+symbol = "pkg"
+format = '[\[$symbol( $version)\]]($style) '
+
+[perl]
+symbol = "perl"
+format = '[\[$symbol( $version)\]]($style) '
+
+[php]
+symbol = "php"
+format = '[\[$symbol( $version)\]]($style) '
+
+[python]
+symbol = "py"
+format = '[\[${symbol}( ${pyenv_prefix})( ${version})( \($virtualenv\))\]]($style) '
+
+[raku]
+symbol = "raku"
+format = '[\[$symbol( $version-$vm_version)\]]($style) '
+
+[ruby]
+symbol = "ruby"
+format = '[\[$symbol( $version)\]]($style) '
+detect_variables = []
+
+[rust]
+symbol = "rs"
+format = '[\[$symbol( $version )\]]($style) '
+
+[solidity]
+symbol = "solidity"
+format = '[\[$symbol( $version)\]]($style) '
+
+[status]
+symbol = "[x](bold red) "
+
+[swift]
+symbol = "swift"
+format = '[\[$symbol( $version)\]]($style) '
+
+[username]
+format = '[$user]($style) '
+
+[custom.docker]
+description = "Shows the docker symbol if current directory has Dockerfile or docker-compose.yml files"
+detect_files = ["Dockerfile", "docker-compose.yml", "docker-compose.yaml"]
+detect_extensions = [".dockerfile"]
+when = """ command -v docker &> /dev/null; exit (echo $?); """
+style = 'bold blue'
+symbol = 'docker'
+format = '[\[$symbol( $version)\]]($style) '

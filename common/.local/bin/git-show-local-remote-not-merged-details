@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# Show local branches that have not been merged on remote with date and author information.
+for branch in `comm -12 <(git branch | awk '{print($1)}') <(git branch -r --no-merged | awk '{print($1)}' | awk -F \\/ '{print($2)}')`; do echo -e `git show --format="%ci %cr %an" $branch | head -n 1`\\t$branch; done | sort -r

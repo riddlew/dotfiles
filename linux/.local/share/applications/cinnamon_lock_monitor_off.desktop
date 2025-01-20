@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Cinnamon Lock and Screen Off
+GenericName=Text Editor
+Comment=Lock and turn screen off
+Exec=bash -c "cinnamon-screensaver-command -l;sleep 10;xset dpms force off"
+Icon=preferences-system-time-symbolic
+Type=Application
+Terminal=false
+Categories=Development;
+Keywords=lock;screen;

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Categories=Development;
+Comment=Supercharge your API workflow
+Exec="/home/pluto/apps/Postman/Postman"
+Icon=/home/pluto/apps/Postman/app/resources/app/assets/icon.png
+Name=Postman
+Terminal=false
+Type=Application
+Version=1.0

@@ -1,0 +1,3 @@
+return {
+	'xolox/vim-misc'
+}

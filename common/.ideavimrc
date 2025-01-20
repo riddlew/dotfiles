@@ -1,0 +1,224 @@
+set scrolloff=3
+" Plug 'machakann/vim-highlightedyank'
+" Plug 'tpope/vim-commentary'
+set visualbell
+set number
+" set relativenumber
+set norelativenumber
+set hlsearch
+set ignorecase
+set incsearch
+set wrapscan
+set history=10000
+set clipboard=unnamedplus,unnamed,ideaput
+
+set multiple-cursors
+set commentary
+set sneak
+set surround
+set ideajoin
+set ideamarks
+set exchange
+set matchit
+set NERDTree
+set easymotion
+set which-key
+set notimeout
+set highlightedyank
+
+set g:EasyMotion_do_mapping=0
+let g:highlightedyank_highlight_duration="250"
+let g:highlightedyank_highlight_color="rgba(217, 179, 0, 100)"
+
+sethandler <A-c> a:ide
+
+let mapleader=" "
+
+noremap Q gq
+map U <Action>($Redo)
+noremap <TAB> %
+noremap Y y$
+noremap <ESC> <ESC>:noh<CR>
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+noremap <A-h> z30h
+noremap <A-l> z30l
+noremap { gT
+noremap } gt
+map <C-[> <Action>(com.mnw.tabmover.actions.MoveTabUpAction)
+map <C-]> <Action>(com.mnw.tabmover.actions.MoveTabDownAction)
+map ]e <Action>(GotoNextError)
+map [e <Action>(GotoPreviousError)
+map ]h <Action>(VcsShowNextChangeMarker)
+map [h <Action>(VcsShowPrevChangeMarker)
+map \\\\ <Action>(ShowErrorDescription)
+map <C-q> <Action>(QuickJavaDoc)
+imap <C-q> <Action>(QuickJavaDoc)
+map <C-s> <Action>(ParameterInfo)
+imap <C-s> <Action>(ParameterInfo)
+vnoremap < <gv
+vnoremap > >gv
+" vnoremap = =gv
+noremap gy "+y
+map = <Action>(StretchSplitToRight)
+map - <Action>(StretchSplitToLeft)
+map + <Action>(StretchSplitToTop)
+map _ <Action>(StretchSplitToBottom)
+
+map <A-j> <Action>(SelectNextOccurrence)
+map <A-S-j> <Action>(FindNext)
+map <A-k> <Action>(UnselectPreviousOccurrence)
+map <A-S-k> <Action>(FindPrevious)
+map <A-a> <Action>(SelectAllOccurrences)
+
+" nmap <A-n> <Plug>NextWholeOccurrence
+" xmap <A-n> <Plug>NextWholeOccurrence
+" nmap g<A-n> <Plug>NextOccurrence
+" xmap g<A-n> <Plug>NextOccurrence
+" xmap <A-S-n> <Plug>SkipOccurrence
+" xmap <A-p> <Plug>RemoveOccurrence
+" nmap <A-a> <Plug>AllWholeOccurrences
+" xmap <A-a> <Plug>AllWholeOccurrences
+" nmap g<A-a> <Plug>AllOccurrences
+" xmap g<A-a> <Plug>AllOccurrences
+
+nmap \\jr <Action>(ShowUsages)
+nmap \\ju <Action>(ShowUsages)
+nmap \\ji <Action>(GotoImplementation)
+nmap \\jd <Action>(GotoDeclaration)
+nmap \\js <Action>(GotoSuperMethod)
+nmap \\jt <Action>(GotoTest)
+nmap [j <Action>(Back)
+nmap ]j <Action>(Forward)
+
+nmap \\pi <Action>(QuickImplementations)
+nmap \\pd <Action>(QuickImplementations)
+nmap \\pr <Action>(ShowUsages)
+nmap \\pu <Action>(ShowUsages)
+
+nmap \\a <Action>(ShowIntentionActions)
+nmap \\r <Action>(RenameElement)
+nmap \\R <Action>(Refactorings.QuickListPopupAction)
+nmap \\o <Action>(OptimizeImports)
+nmap \\g <Action>(Generate)
+nmap \\f <Action>(ReformatCode)
+nmap \\i <Action>(CodeInspection.OnEditor)
+nmap \\f <Action>(ReformatCode)
+vmap \\f <Action>(ReformatCode)
+nmap \\F <Action>(ShowReformatFileDialog)
+vmap \\F <Action>(ShowReformatFileDialog)
+
+nmap <leader>;c <Action>(EditorToggleShowWhitespaces)
+nmap <leader>;<Enter> <Action>(EditorToggleUseSoftWraps)
+
+nmap <leader>n :NERDTree<CR>
+nmap <leader>? <Action>(GotoAction)
+nmap <leader>ff <Action>(GotoFile)
+nmap <leader>fr <Action>(RecentFiles)
+nmap <leader>fg <Action>(FindInPath)
+nmap <leader>fc <Action>(GotoClass)
+nmap <leader>fl <Action>(RecentLocations)
+nmap <leader>fs <Action>(GotoSymbol)
+nmap <leader>fh <Action>(LocalHistory.ShowHistory)
+nmap <leader>fq <Action>(Scratch.ShowFilesPopup)
+nmap <leader>ga <Action>(Vcs.QuickListPopupAction)
+nmap <leader>gr <Action>(Vcs.RollbackChangedLines)
+nmap <leader>gd <Action>(Vcs.ShowDiffWithLocal)
+map <leader>s <Plug>(easymotion-bd-f)
+vmap <leader>S <Action>(SurroundWithEmmet)
+nmap <leader>bd :bd<CR>
+nmap <leader>bo <Action>(CloseAllEditorsButActive)
+nmap <leader>bO <Action>(CloseAllEditors)
+nmap <leader>bmm <Action>(ToggleBookmark)
+nmap <leader>bmr <Action>(EditBookmark)
+nmap <leader>bmg <Action>(ShowTypeBookmarks)
+nmap <leader>bmp <Action>(ShowBookmarks)
+nmap <leader>wc <C-w>c
+nmap <leader>ws <C-w>s
+nmap <leader>wv <C-w>v
+nmap <leader>wo <Action>(CloseAllEditorsButActive)
+nmap <leader>wm <Action>(MaximizeEditorInSplit)
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Custom IntelliJ Settings Keybinds
+" Since some keybinds don't work the best in IdeaVim.
+"
+" Alt + `: Terminal
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Open files, directories and bookmarks
+let g:NERDTreeMapActivateNode = "l"
+" Open selected file, but leave cursor in the NERDTree
+" let g:NERDTreeMapPreview = "go"
+" Open selected node/bookmark in a new tab
+let g:NERDTreeMapOpenInTab = "t"
+" Same as 't' but keep the focus on the current tab
+" let g:NERDTreeMapOpenInTabSilent = "T"
+" Open selected file in a split window
+let g:NERDTreeMapOpenSplit = "s"
+" Same as i, but leave the cursor on the NERDTree
+" let g:NERDTreeMapPreviewSplit = "gs"
+" Open selected file in a new vsplit
+let g:NERDTreeMapOpenVSplit = "v"
+" Same as s, but leave the cursor on the NERDTree
+" let g:NERDTreeMapPreviewVSplit = "gv"
+" Close the current nodes parent
+let g:NERDTreeMapCloseDir = "h"
+" Recursively close all children of the current node
+let g:NERDTreeMapCloseChildren = "W"
+" Recursively open the selected directory
+let g:NERDTreeMapOpenRecursively = "E"
+" Jump to current nodes parent
+let g:NERDTreeMapJumpParent = "p"
+" Jump to the root node
+let g:NERDTreeMapJumpRoot = "P"
+" Jump up inside directories at the current tree depth
+let g:NERDTreeMapJumpFirstChild = "<C-k>"
+" Jump down inside directories at the current tree depth
+let g:NERDTreeMapJumpLastChild = "<C-j>"
+" Jump down to next sibling of the current directory
+let g:NERDTreeMapJumpNextSibling = "J"
+" Jump up to previous sibling of the current directory
+let g:NERDTreeMapJumpPrevSibling = "K"
+" Recursively refresh the current directory
+let g:NERDTreeMapRefresh = "r"
+" Recursively refresh the current root
+let g:NERDTreeMapRefreshRoot = "R"
+" Display the NERDTree menu
+let g:NERDTreeMapMenu = "c"
+" Close the NERDTree window
+let g:NERDTreeMapQuit = "q"
+" Zoom (maximize/minimize) the NERDTree window
+let g:NERDTreeMapToggleZoom = "M"
+
+let g:WhichKey_ShowVimActions = "true"
+let g:WhichKeyDesc_n = "<leader>n NERDTree"
+"let g:WhichKeyDesc_space = "<leader><Space>"
+"let g:WhichKeyDesc_b = "<leader>b +buffer"
+"let g:WhichKeyDesc_bd = "<leader>bd Delete buffer"
+let g:WhichKeyDesc_bm = "<leader>bm +bookmarks"
+"let g:WhichKeyDesc_w = "<leader>w +window"
+"let g:WhichKeyDesc_wc = "<leader>wc Close window"
+"let g:WhichKeyDesc_wv = "<leader>wv Vsplit window"
+"let g:WhichKeyDesc_ws = "<leader>wv Split window"
+"let g:WhichKeyDesc_g = "<leader>g +git"
+"let g:WhichKeyDesc_gs = "<leader>gs Git status"
+"let g:WhichKeyDesc_q = "<leader>q Documentation"
+"let g:WhichKeyDesc_bsbs = "\\\\ Show Error"
+"let g:WhichKeyDesc_f = "\\f Format Code"
+"let g:WhichKeyDesc_bsj = "\\j +Jump"
+"let g:WhichKeyDesc_bsjd = "\\jd Declaraction / Usages"
+"let g:WhichKeyDesc_bsji = "\\ji Implementations"
+"let g:WhichKeyDesc_bsjt = "\\jt Type Declaraction"
+"let g:WhichKeyDesc_bsjs = "\\js Super Method"
+"let g:WhichKeyDesc_bsjT = "\\jT Test"
+"let g:WhichKeyDesc_bsjr = "\\jr Find Usages"
+"let g:WhichKeyDesc_bsg = "\\g Generate"
+"let g:WhichKeyDesc_bsr = "\\r Rename"
+"let g:WhichKeyDesc_bsp = "\\p +Peek"
+"let g:WhichKeyDesc_bspi = "\\pi Implementation"
+"let g:WhichKeyDesc_bspt = "\\pt Type Definition"
+"let g:WhichKeyDesc_semi = "<leader>; +Settings"
+"let g:WhichKeyDesc_semicr = "<leader>;<Enter> Toggle soft wrap"

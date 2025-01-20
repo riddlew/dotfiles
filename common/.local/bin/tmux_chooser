@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+no_of_terminals=$(tmux list-sessions 2>/dev/null | wc -l)
+IFS=$'\n'
+output=($(tmux list-sessions 2>/dev/null))
+output_names=($(tmux list-sessions -F\#S 2>/dev/null))
+k=1
+
+if [[ $no_of_terminals -ge 1 ]]; then
+	echo "Attach to: "
+	for i in "${output[@]}"; do
+		echo "$k - $i"
+		((k++))
+	done
+	echo
+fi
+
+if [[ $no_of_terminals -ge 1 ]]; then
+	echo "[f] FZF open sessions"
+fi
+
+echo "[s] tmux-sessionizer"
+echo "Enter a name to create a new session."
+
+read -r input
+
+if [[ $input == "" ]]; then
+	exit 0
+elif [[ $no_of_terminals -ge 1 ]] && [[ $input == "f" ]]; then
+	n=$(tmux list-sessions | sed -E 's/:.*$//' | grep -v \"^$(tmux display-message -p '#S')\$\" | fzf --reverse)
+	tmux attach -t "$n"
+elif [[ $input == "s" ]]; then
+	selected=$(find -L ~/projects -maxdepth 5 -type d ! -path '*/\.*' ! -path '*/node_modules/*' | fzf)
+
+	if [[ -z $selected ]]; then
+		exit 0
+	fi
+
+	selected_name=$(basename "$selected" | tr . _)
+
+	if ! tmux has-session -t="$selected_name" 2>/dev/null; then
+		tmux new-session -s "$selected_name" -c "$selected"
+	else
+		tmux attach -t "$selected_name"
+	fi
+elif [[ $input =~ ^[0-9]+$ ]] && [[ $input -le $no_of_terminals ]]; then
+	terminal_name="${output_names[input - 1]}"
+	tmux attach -t "$terminal_name"
+else
+	tmux new-session -s "$input"
+fi
+

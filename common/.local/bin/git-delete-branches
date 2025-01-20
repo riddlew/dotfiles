@@ -1,0 +1,82 @@
+#! /bin/sh
+
+DELETE_LOCAL="Delete Local Branches"
+DELETE_LOCAL_FORCE="Delete Local Branches (-D)"
+PRUNE_REMOTE="Prune Remote"
+
+git rev-parse --git-dir > /dev/null 2>&1
+
+if [ $? -ne 0 ];
+then
+	echo "Must be in a git repo to run this command"
+fi
+
+echo ''
+gum style \
+	--border normal \
+	--margin "0" \
+	--padding "0 1" \
+	--border-foreground "#f14e32" \
+	"$(gum style --foreground '#f14e32' ' Git Branch Deleter')"
+
+option=$(gum choose --selected.foreground="#f14e32" --limit="1" "$DELETE_LOCAL" "$DELETE_LOCAL_FORCE" "$PRUNE_REMOTE")
+
+case $option in
+	"$DELETE_LOCAL")
+		branches=$(git branch --format="%(refname:short)" | grep -v "main$" | grep -v "master$")
+
+		if [ ! -z "$branches" ];
+		then
+			echo "Choose $(gum style --foreground "#f14e32" "local branches") to delete"
+			selected=$(gum choose --selected.foreground="#f14e32" --no-limit $branches)
+
+			echo $selected | tr " " "\n" | while read -r branch
+			do
+				echo "\n$(gum style --foreground "1" --bold "Deleting $branch...")"
+				git branch -d $branch
+			done
+		else
+			echo "No branches found"
+			exit 1
+		fi
+		;;
+
+	"$DELETE_LOCAL_FORCE")
+		branches=$(git branch --format="%(refname:short)" | grep -v "main$" | grep -v "master$")
+
+		if [ ! -z "$branches" ];
+		then
+			echo "Choose $(gum style --foreground "#f14e32" "local branches") to delete"
+			selected=$(gum choose --selected.foreground="#f14e32" --no-limit $branches)
+
+			echo $branches | tr " " "\n" | while read -r branch
+			do
+				echo "\n$(gum style --foreground "1" --bold "Force deleting $branch...")"
+				git branch -D $branch
+			done
+		else
+			echo "No branches found"
+			exit 1
+		fi
+		;;
+
+	"$PRUNE_REMOTE")
+		# gum choose --selected.foreground="#f14e32" --no-limit $(git branch -r --format="%(refname:short)" | grep -v "main$" | grep -v "master$")
+		remotes=$(git remote)
+
+		if [ ! -z "$remotes" ];
+		then
+			echo "Choose $(gum style --foreground "#f14e32" "remotes") to prune"
+			selected=$(gum choose --selected.foreground="#f14e32" --no-limit $remotes)
+
+			echo $remotes | tr " " "\n" | while read -r remote
+			do
+				echo "\n$(gum style --foreground "1" --bold "Pruning $remote...")"
+				git remote prune $remote
+			done
+		else
+			echo "No remotes found"
+			exit 1
+		fi
+		;;
+esac

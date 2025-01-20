@@ -1,0 +1,20 @@
+os:
+  # editPreset: 'nvim'
+  # edit: '$LG_EDITOR {{filename}}'
+  # editAtLine: '$LG_EDITOR +{{line}} {{filename}}'
+  # editAtLineAndWait: '$LG_EDITOR +{{line}} {{filename}}'
+  # editInTerminal: true
+  edit: 'nvim --server "$NVIM" --remote-tab {{filename}}'
+  editAtLine: 'nvim --server "$NVIM" --remote-tab {{filename}}; [ -z "$NVIM" ] || nvim --server "$NVIM" --remote-send ":{{line}}<CR>"'
+  editAtLineAndWait: 'nvim +{{line}} {{filename}}'
+
+keybinding:
+  universal:
+    return: '<C-/>'
+
+git:
+  paging:
+    colorArg: never
+    pager: delta --paging=never
+
+notARepository: 'skip'

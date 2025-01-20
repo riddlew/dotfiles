@@ -1,0 +1,19 @@
+configuration {
+	sidebar-mode: true;
+	modi: "combi,run,drun,window";
+	font: "DejaVu Sans Mono 11";
+	kb-cancel: "Escape";
+	kb-mode-next: "Control+bracketright";
+	kb-mode-previous: "Control+bracketleft";
+	
+	timeout {
+		action: "kb-cancel";
+		delay:  0;
+	}
+	filebrowser {
+		directories-first: true;
+		sorting-method:    "name";
+	}
+}
+
+@theme "~/.config/rofi/themes/minev3.rasi"

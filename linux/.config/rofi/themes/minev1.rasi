@@ -1,0 +1,59 @@
+/* See man rofi-theme for guide, under Layout  > Basic structure */
+
+* {
+	background-color: #232634;
+	border-color: #43485e;
+	text-color: #8ca0aa;
+	spacing: 0;
+	width: 512px;
+}
+
+window {
+	anchor: north;
+	location: north;
+	border: 2px;
+	border-color: #43485e;
+}
+
+inputbar {
+	border: 0 0 2px 0;
+	children: [prompt, entry];
+	background-color: #2f3344;
+}
+
+prompt {
+	padding: 2px 10px;
+	background-color: #6c8dd3;
+	text-color: #FFF;
+	margin: 4px;
+	border: 0;
+	border-radius: 3px;
+}
+
+textbox {
+	background-color: #232634;
+	border-color: #282c33;
+	padding: 6px 10px;
+}
+
+entry {
+	background-color: #2f3344;
+	text-color: #eaeaea;
+	padding: 6px 10px 6px 2px;
+}
+
+listview {
+	cycle: false;
+	margin: 0 0 -1px 0;
+	scrollbar: false;
+}
+
+element {
+	padding: 6px 10px;
+	text-color: #eaeaea;
+	background-color: #232634;
+}
+
+element selected {
+	background-color: #2f3344;
+}

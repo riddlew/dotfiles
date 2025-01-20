@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Obsidian
+Exec=/home/wpop/.local/bin/obsidian %U
+Type=Application
+Icon=/home/wpop/.local/share/icons/obsidian-icon.png
+StartupWMClass=obsidian
+Comment=Obsidian
+MimeType=x-scheme-handler/obsidian;
+Categories=Office;

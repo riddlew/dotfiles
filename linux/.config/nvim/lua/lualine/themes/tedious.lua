@@ -1,0 +1,72 @@
+-- stylua: ignore
+local colors = {
+	background  = '#151515',
+	gray    = '#34373e',
+	gray2   = '#515462',
+	green   = '#a7df37',
+	red     = '#ff8484',
+	yellow  = '#ffcc5c',
+	blue    = '#53a7f3',
+	purple  = '#dfafff',
+	white   = '#d3d7cf',
+	inactive= '#504945',
+}
+
+return {
+	normal = {
+		a = { bg = colors.green, fg = colors.background},
+		b = { bg = colors.gray2, fg = colors.white },
+		c = { bg = colors.gray, fg = colors.white },
+		x = { bg = colors.gray, fg = colors.white },
+		y = { bg = colors.gray, fg = colors.white },
+		z = { bg = colors.gray, fg = colors.white },
+	},
+	insert = {
+		a = { bg = colors.yellow, fg = colors.background},
+		b = { bg = colors.gray2, fg = colors.white },
+		c = { bg = colors.gray, fg = colors.white },
+		x = { bg = colors.gray, fg = colors.white },
+		y = { bg = colors.gray, fg = colors.white },
+		z = { bg = colors.gray, fg = colors.white },
+	},
+	visual = {
+		a = { bg = colors.blue, fg = colors.background},
+		b = { bg = colors.gray2, fg = colors.white },
+		c = { bg = colors.gray, fg = colors.white },
+		x = { bg = colors.gray, fg = colors.white },
+		y = { bg = colors.gray, fg = colors.white },
+		z = { bg = colors.gray, fg = colors.white },
+	},
+	replace = {
+		a = { bg = colors.red, fg = colors.background},
+		b = { bg = colors.gray2, fg = colors.white },
+		c = { bg = colors.gray, fg = colors.white },
+		x = { bg = colors.gray, fg = colors.white },
+		y = { bg = colors.gray, fg = colors.white },
+		z = { bg = colors.gray, fg = colors.white },
+	},
+	command = {
+		a = { bg = colors.purple, fg = colors.background},
+		b = { bg = colors.gray2, fg = colors.white },
+		c = { bg = colors.gray, fg = colors.white },
+		x = { bg = colors.gray, fg = colors.white },
+		y = { bg = colors.gray, fg = colors.white },
+		z = { bg = colors.gray, fg = colors.white },
+	},
+	terminal = {
+		a = { bg = colors.white, fg = colors.background},
+		b = { bg = colors.gray2, fg = colors.white },
+		c = { bg = colors.gray, fg = colors.white },
+		x = { bg = colors.gray, fg = colors.white },
+		y = { bg = colors.gray, fg = colors.white },
+		z = { bg = colors.gray, fg = colors.white },
+	},
+	inactive = {
+		a = { bg = colors.gray, fg = colors.white},
+		b = { bg = colors.gray, fg = colors.white },
+		c = { bg = colors.gray, fg = colors.white },
+		x = { bg = colors.gray, fg = colors.white },
+		y = { bg = colors.gray, fg = colors.white },
+		z = { bg = colors.gray, fg = colors.white },
+	},
+}

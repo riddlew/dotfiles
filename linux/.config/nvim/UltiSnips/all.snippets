@@ -1,0 +1,304 @@
+global !p
+def complete(t, opts):
+	if t:
+		opts = [m[len(t):] for m in opts if m.startswith(t)]
+	if len(opts) == 1:
+		return opts[0]
+	return "(" + '|'.join(opts) + ")"
+
+def number_needed(text):
+	length = len(text)
+	rounded = length // 2
+	if length % 1 == 0.5:
+		return [39 - rounded, 38 - rounded]
+	else:
+		return [38 - rounded, 39 - rounded]
+	
+	
+
+LOREM = """
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod \
+tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At \
+vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, \
+no sea takimata sanctus est Lorem ipsum dolor sit amet.
+"""
+endglobal
+
+snippet date "YYYY-MM-DD" w
+`!v strftime("%Y-%m-%d")`
+endsnippet
+
+snippet ddate "Month DD, YYYY" w
+`!v strftime("%b %d, %Y")`
+endsnippet
+
+snippet diso "ISO format datetime" w
+`!v strftime("%Y-%m-%d %H:%M:%S%z")`
+endsnippet
+
+snippet time "hh:mm" w
+`!v strftime("%H:%M")`
+endsnippet
+
+snippet datetime "YYYY-MM-DD hh:mm" w
+`!v strftime("%Y-%m-%d %H:%M")`
+endsnippet
+
+snippet unicodelist "List of unicode characters"
+┌─┬─┐┏━┳━┓╔═╦═╗╭──╮
+│ │ │┃ ┃ ┃║ ║ ║│  │
+├─┼─┤┣━╋━┫╠═╬═╣╰──╯
+└─┴─┘┗━┻━┛╚═╩═╝
+┍┑┎┒
+┕┙┖┚
+┠┨┝┥┞┦┟┧┡┩┢┪
+
+┭ ┮ ┯ ┰ ┱ ┲
+
+┵ ┶ ┷ ┸ ┹ ┺
+
+┽ ┾ ┿ ╀ ╁ ╂ ╃ ╄ ╅ ╆ ╇ ╈ ╉ ╊
+
+┄ ┅ ┆ ┇ ┈ ┉ ┊ ┋ ╌ ╍ ╎ ╏
+endsnippet
+
+snippet boxb "Bold Unicode Box" b
+┏━`!p snip.rv = "━" * len(t[1])`━┓
+┃ ${1:Title} ┃
+┗━`!p snip.rv = "━" * len(t[1])`━┛
+endsnippet
+
+snippet boxt "Thin Unicode Box" b
+┌─`!p snip.rv = "─" * len(t[1])`─┐
+│ ${1:Title} │
+└─`!p snip.rv = "─" * len(t[1])`─┘
+endsnippet
+
+snippet boxr "Rounded Unicode Box" b
+╭─`!p snip.rv = "─" * len(t[1])`─╮
+│ ${1:Title} │
+╰─`!p snip.rv = "─" * len(t[1])`─╯
+endsnippet
+
+snippet table "Unicode Table"
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Table                              ┃
+┣━━━━━━━━━━━┯━━━━━━━━━━━┯━━━━━━━━━━━━┫
+┃           │           │            ┃
+┠───────────┼───────────┼────────────┨
+┃           │           │            ┃
+┗━━━━━━━━━━━┷━━━━━━━━━━━┷━━━━━━━━━━━━┛
+endsnippet
+
+# snippet cmb- "Comment box -" "re.match('^(\s*)', snip.buffer[snip.line])" ie
+# `!p
+# char_count = len(snip.context.group(1))
+# snip.rv += "+" + ("-" * (78 - char_count)) + "+"
+# `
+# | ${1:Title}`!p
+# snip.rv = " " * (76 - len(t[1])) + " |" `
+# `!p
+# char_count = len(snip.context.group(1))
+# snip.rv += "+" + ("-" * (78 - char_count)) + "+"
+# `
+# endsnippet
+
+snippet cmb- "Comment box -" "re.match('^(\s*)', snip.buffer[snip.line])" ie
+`!p
+char_count = len(snip.context.group(1))
+snip.rv += "-" * (79 - char_count)
+`
+-- ${1:Title}`!p
+snip.rv = " " * (73 - len(t[1]) - char_count) + " --" `
+`!p
+char_count = len(snip.context.group(1))
+snip.rv += "-" * (79 - char_count)
+`
+endsnippet
+
+snippet cmb# "Comment box #" "re.match('^(\s*)', snip.buffer[snip.line])" ie
+`!p
+char_count = len(snip.context.group(1))
+snip.rv += "#" * (79 - char_count)
+`
+# ${1:Title}`!p
+snip.rv = " " * (75 - len(t[1]) - char_count) + " #" `
+`!p
+char_count = len(snip.context.group(1))
+snip.rv += "#" * (79 - char_count)
+`
+endsnippet
+
+snippet cmb/ "Comment box /*" "re.match('^(\s*)', snip.buffer[snip.line])" be
+`!p
+char_count = len(snip.context.group(1))
+snip.rv += "/" + ("*" * (77 - char_count))
+`
+ * ${1:Title}`!p
+snip.rv = " " * (73 - len(t[1]) - char_count) + " *" `
+`!p
+char_count = len(snip.context.group(1))
+snip.rv += " " + ("*" * (76 - char_count)) + "*/"
+`
+endsnippet
+
+snippet cml- "Comment line -" "re.match('^(\s*)', snip.buffer[snip.line])" be
+`!p
+import math
+char_count = len(snip.context.group(1))
+half_count = math.floor(char_count / 2)
+snip.rv = "-" * (38 - (len(t[1])//2) - half_count)` ${1:Title} `!p snip.rv = "-" * ((39 if ((len(t[1])/2) % 1) == 0 else 38) - (len(t[1])//2) - half_count)`
+endsnippet
+
+snippet cml# "Comment line =" "re.match('^(\s*)', snip.buffer[snip.line])" be
+`!p
+import math
+char_count = len(snip.context.group(1))
+half_count = math.floor(char_count / 2)
+snip.rv = "#" * (38 - (len(t[1])//2) - half_count)` ${1:Title} `!p snip.rv = "#" * ((39 if ((len(t[1])/2) % 1) == 0 else 38) - (len(t[1])//2) - half_count)`
+endsnippet
+
+snippet cml/ "Comment line /*" "re.match('^(\s*)', snip.buffer[snip.line])" be
+`!p
+import math
+char_count = len(snip.context.group(1))
+half_count = math.floor(char_count / 2)
+snip.rv = "/" + ("*" * (37 - (len(t[1])//2) - half_count))` ${1:Title} `!p snip.rv = ("*" * ((38 if ((len(t[1])/2) % 1) == 0 else 37) - (len(t[1])//2) - half_count)) + "/"`
+endsnippet
+
+snippet gen_uuid "Generate UUID"
+`!p import uuid
+if not snip.c:
+	snip.rv = uuid.uuid4().hex`
+endsnippet
+
+snippet vgen_md5 "VISUAL: Generate MD5 from text"
+`!p
+import hashlib
+if not snip.c:
+	snip.rv = hashlib.md5(snip.v.text.encode()).hexdigest()`
+endsnippet
+
+snippet vgen_sha1 "VISUAL: Generate sha1 from text"
+`!p import hashlib
+if not snip.c:
+		snip.rv = hashlib.sha1(snip.v.text.encode()).hexdigest()`
+endsnippet
+
+snippet vgen_sha224 "VISUAL: Generate sha224 from text"
+`!p import hashlib
+if not snip.c:
+		snip.rv = hashlib.sha224(snip.v.text.encode()).hexdigest()`
+endsnippet
+
+snippet vgen_sha256 "VISUAL: Generate sha256 from text"
+`!p import hashlib
+if not snip.c:
+		snip.rv = hashlib.sha256(snip.v.text.encode()).hexdigest()`
+endsnippet
+
+snippet vgen_sha384 "VISUAL: Generate sha384 from text"
+`!p import hashlib
+if not snip.c:
+		snip.rv = hashlib.sha384(snip.v.text.encode()).hexdigest()`
+endsnippet
+
+snippet vgen_sha512 "VISUAL: Generate sha512 from text"
+`!p import hashlib
+if not snip.c:
+		snip.rv = hashlib.sha512(snip.v.text.encode()).hexdigest()`
+endsnippet
+
+snippet vint2bin "VISUAL: Int -> Binary"
+`!p
+if not snip.c:
+	try:
+		snip.rv = format(int(snip.v.text), '010b')
+	except:
+		snip.rv = snip.v.text`
+endsnippet
+
+snippet vbin2int "VISUAL: Binary -> Int"
+`!p
+if not snip.c:
+	try:
+		snip.rv = int(snip.v.text, 2)
+	except:
+		snip.rv = snip.v.text`
+endsnippet
+
+snippet vint2hex "VISUAL: Int -> Hex"
+`!p
+if not snip.c:
+	try:
+		snip.rv = hex(int(snip.v.text))
+	except:
+		snip.rv = snip.v.text`
+endsnippet
+
+snippet vhex2int "VISUAL: Hex -> Int"
+`!p
+if not snip.c:
+	try:
+		snip.rv = int(snip.v.text, 16)
+	except:
+		snip.rv = snip.v.text`
+endsnippet
+
+snippet vstr2bin "VISUAL: Str -> Binary"
+`!p
+if not snip.c:
+	try:
+		snip.rv = " ".join(format(ord(x), '010b') for x in snip.v.text)
+	except:
+		snip.rv = snip.v.text`
+endsnippet
+
+snippet vbin2str "VISUAL: Binary -> Str"
+`!p
+if not snip.c:
+	try:
+		blocks = snip.v.text.split(" ")
+		snip.rv = "".join(chr(int(x,2)) for x in blocks)
+	except:
+		snip.rv = snip.v.text`
+endsnippet
+
+snippet vbase64encode "VISUAL: Binary -> Str"
+`!p import base64
+if not snip.c:
+	try:
+		snip.rv = base64.b64encode(snip.v.text.encode('ascii')).decode('ascii')
+	except:
+		snip.rv = snip.v.text`
+endsnippet
+
+snippet vbase64decode "VISUAL: Binary -> Str"
+`!p import base64
+if not snip.c:
+	try:
+		snip.rv = base64.b64decode(snip.v.text.encode('ascii')).decode('ascii')
+	except:
+		snip.rv = snip.v.text`
+endsnippet
+
+snippet test "TEST"
+TEST $1
+${VISUAL}
+endsnippet
+
+snippet test_status "Status"
+$1`!p snip.rv=complete(t[1], ['TODO: ', 'BUG: ', 'FIX: '])`
+endsnippet
+
+snippet test_todo "TODO" b
+${1|TODO,BUG,FIX|}{$2}
+endsnippet
+
+snippet "lorem(([1-4])?[0-9])?" "Lorem Ipsum" r
+`!p snip.rv = " ".join(LOREM.split()[:int(match.group(1))]) if match.group(1) else LOREM`
+endsnippet
+
+snippet gc "Git Commit" b
+${1|feat(,fix(,style(,refactor(,test(,docs(,chore(|}
+endsnippet

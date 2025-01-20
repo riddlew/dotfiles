@@ -1,0 +1,3 @@
+return {
+	'riddlew/vim-exchange'
+}

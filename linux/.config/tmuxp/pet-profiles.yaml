@@ -1,0 +1,21 @@
+session_name: 'pet-profiles'
+start_directory: ~/projects/pet-profiles
+windows:
+  - window-name: nvim
+    panes:
+      - shell_command: nvim -c ":NvimTreeOpen"
+        focus: true
+  - window-name: servers
+    layout: 1fdc,100x39,0,0{50x39,0,0[50x19,0,0,1,50x19,0,20,5],49x39,51,0[49x19,51,0,4,49x19,51,20,6]}
+    panes:
+      - shell_command:
+        - cd web
+        - pnpm run dev
+      - shell_command:
+        - cd api
+        - pnpm run dev:no-watch
+      - shell_command:
+        - cd docker
+        - docker compose up
+        focus: true
+
