@@ -1,5 +1,5 @@
 return {
-	dir = LOCAL_PLUGIN_PATH .. "overseer.nvim",
+	dir = LOCAL_PLUGIN_DIR .. "overseer.nvim",
 	config = function()
 		require('overseer').setup({
 			task_list = {

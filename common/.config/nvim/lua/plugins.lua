@@ -5,7 +5,7 @@
 -- tasks.nvim: readme is shit, didn't even bother installing
 -- vs-tasks: no global config
 
-LOCAL_PLUGIN_PATH = "~/dotfiles/mac/nvim_plugins/"
+-- LOCAL_PLUGIN_PATH = "~/dotfiles/mac/nvim_plugins/"
 
 local plugins = {
 	-- require('plugins.barbar'),
@@ -102,7 +102,7 @@ local plugins = {
 
 local opts = {
 	dev = {
-		path = "~/dotfiles/mac/nvim_plugins",
+		path = LOCAL_PLUGIN_DIR,
 	},
 }
 

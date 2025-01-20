@@ -1,5 +1,5 @@
 return {
-	dir = LOCAL_PLUGIN_PATH .. "jumper.nvim",
+	dir = LOCAL_PLUGIN_DIR .. "jumper.nvim",
 	config = function()
 		require("jumper").setup()
 	end

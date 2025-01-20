@@ -1,3 +1,3 @@
 return {
-	dir = LOCAL_PLUGIN_PATH .. "asciitree.nvim"
+	dir = LOCAL_PLUGIN_DIR .. "asciitree.nvim"
 }

@@ -1,5 +1,5 @@
 return {
-	dir = LOCAL_PLUGIN_PATH .. "nvim-dap-ruby",
+	dir = LOCAL_PLUGIN_DIR .. "nvim-dap-ruby",
 	config = function()
 		require("dap-ruby").setup()
 	end

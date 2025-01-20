@@ -49,7 +49,8 @@ end
 -- vim.cmd('colorscheme lush_gruvbox_custom_dark')
 -- vim.cmd('colorscheme lush_gruvbox_v2')
 -- vim.cmd('colorscheme lush_between')
-vim.cmd('colorscheme visual_studio_code')
+-- vim.cmd('colorscheme visual_studio_code')
+vim.cmd('colorscheme catppuccin')
 
 -- vim.cmd('colorscheme paramount')
 -- vim.cmd('hi Normal guibg=#262626 gui=none')
