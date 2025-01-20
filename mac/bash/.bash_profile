@@ -103,7 +103,6 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH=$PATH:$HOME/.composer/vendor/bin
 
 
-{{ if eq .chezmoi.os "darwin" }}
 ##############################################
 # macos only                                 #
 ##############################################
@@ -125,8 +124,4 @@ export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/b
 
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-
-##############################################
-# linux only                                 #
-##############################################
 

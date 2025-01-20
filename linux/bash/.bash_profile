@@ -103,29 +103,6 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH=$PATH:$HOME/.composer/vendor/bin
 
 
-{{ if eq .chezmoi.os "darwin" }}
-##############################################
-# macos only                                 #
-##############################################
-
-# Add wezterm to path
-export PATH="$PATH:/Applications/Wezterm.app/Contents/MacOS"
-
-# Add php to path from homebrew
-export PATH="$PATH:/opt/homebrew/opt/php@8.2/bin"
-
-# Add vscode to path
-export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
-
-# Brew
-# eval "$(/opt/homebrew/bin/brew shellenv)"
-
-# asdf
-# source "$(brew --prefix asdf)/libexec/asdf.sh"
-
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-
 ##############################################
 # linux only                                 #
 ##############################################
