@@ -133,20 +133,17 @@ _dotnet_zsh_complete()
 
 compdef _dotnet_zsh_complete dotnet
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-
-
-# bun completions
-[ -s "/Users/wmbp/.bun/_bun" ] && source "/Users/wmbp/.bun/_bun"
-
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-# Java
-export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 
-# asdf
-source "$(brew --prefix asdf)/libexec/asdf.sh"
+##############################################
+# linux only                                 #
+##############################################
+
+# bun completions
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+
+# Java
+# export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
