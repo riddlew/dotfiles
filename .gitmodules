@@ -1,0 +1,39 @@
+[submodule "common/nvim_plugins/asciitree.nvim"]
+	path = common/nvim_plugins/asciitree.nvim
+	url = git@github.com:riddlew/asciitree.nvim
+[submodule "common/nvim_plugins/jumper.nvim"]
+	path = common/nvim_plugins/jumper.nvim
+	url = git@github.com:riddlew/jumper.nvim
+[submodule "common/nvim_plugins/lush-between"]
+	path = common/nvim_plugins/lush-between
+	url = git@github.com:riddlew/lush-between
+[submodule "common/nvim_plugins/lush-gruvbox-custom-dark-theme"]
+	path = common/nvim_plugins/lush-gruvbox-custom-dark-theme
+	url = git@github.com:riddlew/lush-gruvbox-custom-dark-theme
+[submodule "common/nvim_plugins/lush-gruvbox-custom-mid-theme"]
+	path = common/nvim_plugins/lush-gruvbox-custom-mid-theme
+	url = git@github.com:riddlew/lush-gruvbox-custom-mid-theme
+[submodule "common/nvim_plugins/lush-gruvbox-v2"]
+	path = common/nvim_plugins/lush-gruvbox-v2
+	url = git@github.com:riddlew/lush-gruvbox-v2
+[submodule "common/nvim_plugins/lush-material-custom-theme"]
+	path = common/nvim_plugins/lush-material-custom-theme
+	url = git@github.com:riddlew/lush-material-custom-theme
+[submodule "common/nvim_plugins/nvim-dap-ruby"]
+	path = common/nvim_plugins/nvim-dap-ruby
+	url = git@github.com:riddlew/nvim-dap-ruby
+[submodule "common/nvim_plugins/nvim-tree.lua"]
+	path = common/nvim_plugins/nvim-tree.lua
+	url = git@github.com:riddlew/nvim-tree.lua
+[submodule "common/nvim_plugins/swap-split.nvim"]
+	path = common/nvim_plugins/swap-split.nvim
+	url = git@github.com:riddlew/swap-split.nvim
+[submodule "common/nvim_plugins/telescope-floaterm.nvim"]
+	path = common/nvim_plugins/telescope-floaterm.nvim
+	url = git@github.com:riddlew/telescope-floaterm.nvim
+[submodule "common/nvim_plugins/todo-comments.nvim"]
+	path = common/nvim_plugins/todo-comments.nvim
+	url = git@github.com:riddlew/todo-comments.nvim
+[submodule "private"]
+	path = private
+	url = git@github.com:riddlew/dotfiles_private
