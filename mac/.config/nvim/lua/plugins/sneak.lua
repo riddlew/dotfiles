@@ -1,3 +1,0 @@
-return {
-	'riddlew/vim-sneak'
-}

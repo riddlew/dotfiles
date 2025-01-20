@@ -1,3 +1,0 @@
-return {
-	'xolox/vim-notes'
-}

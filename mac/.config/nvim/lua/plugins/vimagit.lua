@@ -1,3 +1,0 @@
-return {
-	'jreybert/vimagit'
-}
