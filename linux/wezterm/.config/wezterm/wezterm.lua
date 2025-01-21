@@ -1,4 +1,5 @@
-# Choosing Alacritty over Wezterm because font rendering is better in Alacritty
+-- Choosing Alacritty over Wezterm because font rendering is better in
+-- Alacritty
 
 local wezterm = require 'wezterm'
 local config = {}
