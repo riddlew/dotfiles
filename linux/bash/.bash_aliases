@@ -68,6 +68,8 @@ alias gu='git restore --staged'
 alias gc='git checkout'
 alias gco='git commit'
 alias gca='git commit --amend'
+alias gdiff='git diff --staged'
+
 function gcf() {
     git commit --fixup=$*
 }
