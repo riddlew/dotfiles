@@ -1,4 +1,4 @@
-import = [
+general.import = [
 	# "~/.config/alacritty/themes/gruvbox-medium.toml"
 	# "~/.config/alacritty/themes/gruvbox-dark.toml"
 	# "~/.config/alacritty/themes/catppuccin/catppuccin-mocha.toml"
@@ -8,7 +8,7 @@ import = [
 	"~/.config/alacritty/themes/mine.toml"
 ]
 
-live_config_reload = true
+general.live_config_reload = true
 
 [bell]
 duration = 0
@@ -23,7 +23,7 @@ blinking = "Off"
 shape = "Block"
 
 [font]
-size = 14.0 # InputMono NF
+size = 11.0 # InputMono NF
 # size = 10.5 # JetBrains
 
 [font.bold]
@@ -36,9 +36,12 @@ style = "Bold Italic"
 style = "Italic"
 
 [font.normal]
+# family = "Maple Mono Normal NL NF"
 family = "JetBrainsMono Nerd Font"
-# style = "Regular"
 style = "Regular"
+
+# family = "JetBrainsMono Nerd Font"
+# style = "Regular"
 
 # family = "IosevkaMine NF"
 # style = "Regular"
@@ -65,8 +68,8 @@ style = "Regular"
 
 [font.offset]
 x = 0
+y = 5
 # y = 1 # InputMono
-y = 0 # InputMine
 # y = 0 # JetBrains
 
 [[keyboard.bindings]]
@@ -530,7 +533,7 @@ title = "Alacritty"
 
 [window.dimensions]
 columns = 100
-lines = 40
+lines = 30
 
 [window.padding]
 x = 2
