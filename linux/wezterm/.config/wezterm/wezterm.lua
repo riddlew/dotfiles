@@ -86,13 +86,14 @@ config.colors = {
 config.default_prog = { "/usr/bin/zsh", "-l" }
 
 config.font = wezterm.font_with_fallback {
-	'JetBrainsMono Nerd Font',
+	'Maple Mono Normal NL NF',
+	-- 'JetBrainsMono Nerd Font',
 	-- 'SFMono Nerd Font',
 	-- 'IosevkaMineNew Nerd Font Extended'
 	-- 'InputMono NF'
 	-- 'InputMine 1.3 Nerd Font'
 }
-config.font_size = 13.5
+config.font_size = 11.0
 -- config.font_size = 10.0
 -- Using this because 1.4 is just a little too big for terminal use
 config.line_height = 1.2
