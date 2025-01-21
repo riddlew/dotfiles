@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=WezTerm
+Exec=/home/wpop/.local/bin/wezterm %U
+Type=Application
+Icon=/home/wpop/.local/share/icons/wezterm-icon.png
+StartupWMClass=wezterm
+Comment=WezTerm
+MimeType=x-scheme-handler/obsidian;
+Categories=Office;
