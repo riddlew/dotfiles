@@ -147,3 +147,6 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # Java
 # export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
