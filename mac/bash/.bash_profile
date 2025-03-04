@@ -117,7 +117,7 @@ export PATH="$PATH:/opt/homebrew/opt/php@8.2/bin"
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
 # Brew
-# eval "$(/opt/homebrew/bin/brew shellenv)"
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # asdf
 # source "$(brew --prefix asdf)/libexec/asdf.sh"
