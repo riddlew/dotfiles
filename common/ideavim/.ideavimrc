@@ -71,7 +71,7 @@ map <A-j> <Action>(SelectNextOccurrence)
 map <A-S-j> <Action>(FindNext)
 map <A-k> <Action>(UnselectPreviousOccurrence)
 map <A-S-k> <Action>(FindPrevious)
-map <A-a> <Action>(SelectAllOccurrences)
+map <A-C-S-j> <Action>(SelectAllOccurrences)
 
 " nmap <A-n> <Plug>NextWholeOccurrence
 " xmap <A-n> <Plug>NextWholeOccurrence
