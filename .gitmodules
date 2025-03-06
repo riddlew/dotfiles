@@ -1,39 +1,39 @@
 [submodule "common/nvim_plugins/nvim_plugins/asciitree.nvim"]
 	path = common/nvim_plugins/nvim_plugins/asciitree.nvim
-	url = git@github.com:attamatic/asciitree.nvim
+	url = git@github.com:attrid/asciitree.nvim
 [submodule "common/nvim_plugins/nvim_plugins/jumper.nvim"]
 	path = common/nvim_plugins/nvim_plugins/jumper.nvim
-	url = git@github.com:attamatic/jumper.nvim
+	url = git@github.com:attrid/jumper.nvim
 [submodule "common/nvim_plugins/nvim_plugins/lush-between"]
 	path = common/nvim_plugins/nvim_plugins/lush-between
-	url = git@github.com:attamatic/lush-between
+	url = git@github.com:attrid/lush-between
 [submodule "common/nvim_plugins/nvim_plugins/lush-gruvbox-custom-dark-theme"]
 	path = common/nvim_plugins/nvim_plugins/lush-gruvbox-custom-dark-theme
-	url = git@github.com:attamatic/lush-gruvbox-custom-dark-theme
+	url = git@github.com:attrid/lush-gruvbox-custom-dark-theme
 [submodule "common/nvim_plugins/nvim_plugins/lush-gruvbox-custom-mid-theme"]
 	path = common/nvim_plugins/nvim_plugins/lush-gruvbox-custom-mid-theme
-	url = git@github.com:attamatic/lush-gruvbox-custom-mid-theme
+	url = git@github.com:attrid/lush-gruvbox-custom-mid-theme
 [submodule "common/nvim_plugins/nvim_plugins/lush-gruvbox-v2"]
 	path = common/nvim_plugins/nvim_plugins/lush-gruvbox-v2
-	url = git@github.com:attamatic/lush-gruvbox-v2
+	url = git@github.com:attrid/lush-gruvbox-v2
 [submodule "common/nvim_plugins/nvim_plugins/lush-material-custom-theme"]
 	path = common/nvim_plugins/nvim_plugins/lush-material-custom-theme
-	url = git@github.com:attamatic/lush-material-custom-theme
+	url = git@github.com:attrid/lush-material-custom-theme
 [submodule "common/nvim_plugins/nvim_plugins/nvim-dap-ruby"]
 	path = common/nvim_plugins/nvim_plugins/nvim-dap-ruby
-	url = git@github.com:attamatic/nvim-dap-ruby
+	url = git@github.com:attrid/nvim-dap-ruby
 [submodule "common/nvim_plugins/nvim_plugins/nvim-tree.lua"]
 	path = common/nvim_plugins/nvim_plugins/nvim-tree.lua
-	url = git@github.com:attamatic/nvim-tree.lua
+	url = git@github.com:attrid/nvim-tree.lua
 [submodule "common/nvim_plugins/nvim_plugins/swap-split.nvim"]
 	path = common/nvim_plugins/nvim_plugins/swap-split.nvim
-	url = git@github.com:attamatic/swap-split.nvim
+	url = git@github.com:attrid/swap-split.nvim
 [submodule "common/nvim_plugins/nvim_plugins/telescope-floaterm.nvim"]
 	path = common/nvim_plugins/nvim_plugins/telescope-floaterm.nvim
-	url = git@github.com:attamatic/telescope-floaterm.nvim
+	url = git@github.com:attrid/telescope-floaterm.nvim
 [submodule "common/nvim_plugins/nvim_plugins/todo-comments.nvim"]
 	path = common/nvim_plugins/nvim_plugins/todo-comments.nvim
-	url = git@github.com:attamatic/todo-comments.nvim
+	url = git@github.com:attrid/todo-comments.nvim
 [submodule "private"]
 	path = private
-	url = git@github.com:attamatic/dotfiles_private
+	url = git@github.com:attrid/dotfiles_private
