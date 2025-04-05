@@ -44,7 +44,8 @@ config.colors = {
 		}
 	},
 	-- foreground = '#ebdbb2',
-	background = '#1d2020',
+	-- background = '#1d2020',
+	background = '#121212',
 	-- cursor_bg = '',
 	-- cursor_fg = '',
 	-- cursor_border = '',
@@ -86,16 +87,17 @@ config.colors = {
 -- config.default_prog = { "/usr/bin/zsh", "-l" }
 
 config.font = wezterm.font_with_fallback {
-	'Maple Mono Normal NL NF',
+	-- 'Maple Mono Normal NL NF',
+	'JetBrainsMono Nerd Font',
 	-- 'SFMono Nerd Font',
 	-- 'IosevkaMineNew Nerd Font Extended'
 	-- 'InputMono NF'
 	-- 'InputMine 1.3 Nerd Font'
 }
-config.font_size = 15.0
+config.font_size = 14.0
 -- config.font_size = 10.0
 -- Using this because 1.4 is just a little too big for terminal use
-config.line_height = 1.2
+config.line_height = 1.1
 -- config.line_height = 1.3   -- 1.2 in Jetbrains
 -- config.line_height = 1.4   -- 1.3 in Jetbrains
 -- config.line_height = 1.5   -- 1.4 in Jetbrains
