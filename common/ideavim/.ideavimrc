@@ -3,8 +3,8 @@ set scrolloff=3
 " Plug 'tpope/vim-commentary'
 set visualbell
 set number
-" set relativenumber
-set norelativenumber
+set relativenumber
+" set norelativenumber
 set hlsearch
 set ignorecase
 set incsearch
@@ -87,6 +87,7 @@ map <A-C-S-j> <Action>(SelectAllOccurrences)
 nmap \\jr <Action>(ShowUsages)
 nmap \\ju <Action>(ShowUsages)
 nmap \\ji <Action>(GotoImplementation)
+nmap \\jj <Action>(GotoRelated)
 nmap \\jd <Action>(GotoDeclaration)
 nmap \\js <Action>(GotoSuperMethod)
 nmap \\jt <Action>(GotoTest)
