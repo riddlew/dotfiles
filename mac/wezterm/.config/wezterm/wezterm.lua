@@ -8,7 +8,8 @@ end
 -- config.color_scheme = 'Google Dark (Gogh)'
 -- config.color_scheme = 'GruvboxDarkHard'
 -- config.color_scheme = 'Gruvbox dark, hard (base16)'
-config.color_scheme = 'GJM (terminal.sexy)'
+-- config.color_scheme = 'GJM (terminal.sexy)'
+config.color_scheme = 'Mine'
 config.window_frame = {
 	active_titlebar_bg = '#303030',
 	inactive_titlebar_bg = '#303030',
@@ -18,69 +19,6 @@ config.window_padding = {
 	right = 2,
 	top = 2,
 	bottom = 2
-}
-config.colors = {
-	tab_bar = {
-		-- inactive_tab_edge = '#1d9020',
-		active_tab = {
-			bg_color = '#1d2020',
-			fg_color = '#ece2cd',
-		},
-		inactive_tab = {
-			bg_color = '#303030',
-			fg_color = '#9b969b',
-		},
-		inactive_tab_hover = {
-			bg_color = '#1d2020',
-			fg_color = '#ece2cd',
-		},
-		new_tab = {
-			bg_color = '#303030',
-			fg_color = '#9b969b',
-		},
-		new_tab_hover = {
-			bg_color = '#303030',
-			fg_color = '#ffffff',
-		}
-	},
-	-- foreground = '#ebdbb2',
-	-- background = '#1d2020',
-	background = '#121212',
-	-- cursor_bg = '',
-	-- cursor_fg = '',
-	-- cursor_border = '',
-	selection_fg = '#000000',
-	-- selection_bg = '#3b3735',
-	selection_bg = '#fe811b',
-	-- ansi = {
-	-- 	"#282828",
-	-- 	"#fb4934",
-	-- 	"#b8bb26",
-	-- 	"#fabd2f",
-	-- 	"#83a598",
-	-- 	"#d3869b",
-	-- 	"#8ec07c",
-	-- 	"#d5c4a1",
-	-- },
-	-- brights = {
-	-- 	"#665c54",
-	-- 	"#fb4934",
-	-- 	"#b8bb26",
-	-- 	"#fabd2f"
-	-- 	"#83a598",
-	-- 	"#d3869b",
-	-- 	"#8ec07c",
-	-- 	"#fbf1c7",
-	-- },
-
-	copy_mode_active_highlight_bg = { Color = '#fe811b' },
-	copy_mode_active_highlight_fg = { Color = '#000000' },
-	copy_mode_inactive_highlight_bg = { Color = '#fabd2e' },
-	copy_mode_inactive_highlight_fg = { Color = '#000000' },
-	quick_select_label_bg = { Color = '#fe811b' },
-	quick_select_label_fg = { Color = '#000000' },
-	quick_select_match_bg = { Color = '#fabd2e' },
-	quick_select_match_fg = { Color = '#000000' },
 }
 
 -- config.default_prog = { 'powershell.exe' }
@@ -172,11 +110,11 @@ config.keys = {
 	-- 	mods = 'CTRL|SHIFT',
 	-- 	action = wezterm.action.ClearScrollback("ScrollbackOnly")
 	-- },
-	-- {
-	-- 	key = 'l',
-	-- 	mods = 'CTRL|SHIFT',
-	-- 	action = wezterm.action.ShowDebugOverlay
-	-- },
+	{
+		key = 'l',
+		mods = 'SUPER|SHIFT',
+		action = wezterm.action.ShowDebugOverlay
+	},
 	{
 		key = 'p',
 		mods = 'SUPER|SHIFT',
@@ -232,6 +170,78 @@ config.keys = {
 		mods = 'SUPER|SHIFT|CTRL',
 		action = wezterm.action.ToggleFullScreen,
 	},
+}
+
+config.color_schemes = {
+	['Mine'] = {
+		background = '#161616',
+		foreground = '#D8E1DF',
+		selection_fg = '#FFFFFF',
+		selection_bg = '#45495f',
+		ansi = {
+			-- black
+			"#4E4E4E",
+			-- red
+			"#EE4F6C",
+			-- green
+			"#52DE54",
+			-- yellow
+			"#EDB54B",
+			-- blue
+			"#64A8FF",
+			-- purple
+			"#8D84C6",
+			-- teal
+			"#58B6CA",
+			-- silver
+			"#D8E1DF"
+		},
+		brights = {
+			-- black
+			"#6E6E6E",
+			-- red
+			"#FF82AF",
+			-- green
+			"#A3E88D",
+			-- yellow
+			"#FFEC6B",
+			-- blue
+			"#97BBF7",
+			-- purple
+			"#C0B7F9",
+			-- teal
+			"#8BE9FD",
+			-- silver
+			"#FFFFFF"
+		},
+		tab_bar = {
+			-- inactive_tab_edge = '#1d9020',
+			active_tab = {
+				bg_color = '#1d2020',
+				fg_color = '#ece2cd',
+			},
+			inactive_tab = {
+				bg_color = '#303030',
+				fg_color = '#9b969b',
+			},
+			inactive_tab_hover = {
+				bg_color = '#1d2020',
+				fg_color = '#ece2cd',
+			},
+			new_tab = {
+				bg_color = '#303030',
+				fg_color = '#9b969b',
+			},
+			new_tab_hover = {
+				bg_color = '#303030',
+				fg_color = '#ffffff',
+			}
+		},
+		quick_select_label_bg = { Color = '#64A8FF' },
+		quick_select_label_fg = { Color = '#000000' },
+		quick_select_match_bg = { Color = '#225588' },
+		quick_select_match_fg = { Color = '#FFFFFF' },
+	}
 }
 
 return config
