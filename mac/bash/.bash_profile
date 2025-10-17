@@ -102,6 +102,9 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # Laravel Valet
 export PATH=$PATH:$HOME/.composer/vendor/bin
 
+# Use python from UV
+export PATH="$HOME/.local/bin/python:$PATH"
+
 
 ##############################################
 # macos only                                 #
