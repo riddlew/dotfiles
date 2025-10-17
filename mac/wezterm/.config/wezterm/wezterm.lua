@@ -88,8 +88,8 @@ config.colors = {
 
 config.font = wezterm.font_with_fallback {
 	-- 'Maple Mono Normal NL NF',
-	'JetBrainsMono Nerd Font',
-	-- 'SFMono Nerd Font',
+	-- 'JetBrainsMono Nerd Font',
+	'SFMono Nerd Font',
 	-- 'IosevkaMineNew Nerd Font Extended'
 	-- 'InputMono NF'
 	-- 'InputMine 1.3 Nerd Font'
@@ -226,6 +226,11 @@ config.keys = {
 		key = 'n',
 		mods = 'SUPER',
 		action = wezterm.action.SpawnWindow
+	},
+	{
+		key = 'f',
+		mods = 'SUPER|SHIFT|CTRL',
+		action = wezterm.action.ToggleFullScreen,
 	},
 }
 
