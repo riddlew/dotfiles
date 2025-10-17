@@ -54,9 +54,11 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 # alias glo='git log --oneline --all --graph --decorate --branches'
 # alias glog='git log --color --graph --branches --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --decorate --all --oneline'
-alias glog='git log --color --graph --branches --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --all'
-alias glo='git log --color --graph --branches --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset"'
-alias gl='git log --color --graph --branches --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %C(bold cyan)%aD%C(reset) %Cgreen(%cr)%Creset%n""          %C(white)%s%C(reset) %C(bold blue)<%an>%Creset" --all'
+#alias glog='git log --color --graph --branches --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --all'
+# alias glo='git log --color --graph --branches --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset"'
+# alias gl='git log --color --graph --branches --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %C(bold cyan)%aD%C(reset) %Cgreen(%cr)%Creset%n""          %C(white)%s%C(reset) %C(bold blue)<%an>%Creset" --all'
+alias gl="git log --color --graph --abbrev-commit --branches --all --pretty=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold black)- %an%C(reset)%C(auto)%d%C(reset)'"
+alias glog="git log --color --graph --abbrev-commit --branches --all --pretty=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset)%n''          %C(bold black)%an%C(reset)'"
 alias ngit='GIT_EDITOR="nvim" git'
 alias vsgit='GIT_EDITOR="code --wait" git'
 alias gg='git-graph --no-pager --color always --model simple | less -r'
