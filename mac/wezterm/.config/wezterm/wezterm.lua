@@ -5,11 +5,7 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
--- config.color_scheme = 'Google Dark (Gogh)'
--- config.color_scheme = 'GruvboxDarkHard'
--- config.color_scheme = 'Gruvbox dark, hard (base16)'
--- config.color_scheme = 'GJM (terminal.sexy)'
-config.color_scheme = 'Mine'
+config.color_scheme = 'Mine2'
 config.window_frame = {
 	active_titlebar_bg = '#303030',
 	inactive_titlebar_bg = '#303030',
@@ -26,19 +22,14 @@ config.window_padding = {
 
 config.font = wezterm.font_with_fallback {
 	-- 'Maple Mono Normal NL NF',
-	-- 'JetBrainsMono Nerd Font',
 	'SFMono Nerd Font',
+	-- 'JetBrainsMono Nerd Font',
 	-- 'IosevkaMineNew Nerd Font Extended'
 	-- 'InputMono NF'
 	-- 'InputMine 1.3 Nerd Font'
 }
 config.font_size = 14.0
--- config.font_size = 10.0
--- Using this because 1.4 is just a little too big for terminal use
-config.line_height = 1.1
--- config.line_height = 1.3   -- 1.2 in Jetbrains
--- config.line_height = 1.4   -- 1.3 in Jetbrains
--- config.line_height = 1.5   -- 1.4 in Jetbrains
+config.line_height = 1.2
 
 -- Disable ligatures
 config.harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }
@@ -173,6 +164,74 @@ config.keys = {
 }
 
 config.color_schemes = {
+	['Mine2'] = {
+		background = '#0c0c0c',
+		foreground = '#cccccc',
+		selection_fg = '#cccccc',
+		selection_bg = '#585b70',
+		ansi = {
+			-- black
+			"#4E4E4E",
+			-- red
+			"#EE4F6C",
+			-- green
+			"#52DE54",
+			-- yellow
+			"#FFEC6B",
+			-- blue
+			"#80b7ff",
+			-- purple
+			"#d150eb",
+			-- teal
+			"#61d6d6",
+			-- silver
+			"#cccccc"
+		},
+		brights = {
+			-- black
+			"#6E6E6E",
+			-- red
+			"#eE4F6C",
+			-- green
+			"#52DE54",
+			-- yellow
+			"#FFEC6B",
+			-- blue
+			"#80b7ff",
+			-- purple
+			"#d150eb",
+			-- teal
+			"#61d6d6",
+			-- silver
+			"#f2f2f2"
+		},
+		tab_bar = {
+			active_tab = {
+				bg_color = '#0c0c0c',
+				fg_color = '#ece2cd',
+			},
+			inactive_tab = {
+				bg_color = '#303030',
+				fg_color = '#9b969b',
+			},
+			inactive_tab_hover = {
+				bg_color = '#1d2020',
+				fg_color = '#ece2cd',
+			},
+			new_tab = {
+				bg_color = '#303030',
+				fg_color = '#9b969b',
+			},
+			new_tab_hover = {
+				bg_color = '#303030',
+				fg_color = '#ffffff',
+			}
+		},
+		quick_select_label_bg = { Color = '#64A8FF' },
+		quick_select_label_fg = { Color = '#000000' },
+		quick_select_match_bg = { Color = '#225588' },
+		quick_select_match_fg = { Color = '#FFFFFF' },
+	},
 	['Mine'] = {
 		background = '#161616',
 		foreground = '#D8E1DF',

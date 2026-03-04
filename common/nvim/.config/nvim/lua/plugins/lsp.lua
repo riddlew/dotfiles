@@ -115,23 +115,23 @@ local lsp_setup = function()
 		-- vim.cmd('autocmd BufWritePre <buffer> lua FormatFileOnSaveIfEnabled()')
 	end
 
-	local null_ls = require('null-ls')
-	null_ls.setup({
-		sources = {
-			--null_ls.builtins.code_actions.eslint_d,
-			--null_ls.builtins.diagnostics.eslint_d,
-			null_ls.builtins.diagnostics.rubocop,
-			--null_ls.builtins.formatting.eslint_d,
-			null_ls.builtins.formatting.prettier,
-			-- Example with args, not sure if .prettierrc takes precedence or not.
-			-- null_ls.builtins.formatting.prettier.with({ extra_args = { "--no-semi", "--single-quote" } }),
-			null_ls.builtins.formatting.rubocop,
-			null_ls.builtins.formatting.stylua,
-		},
-		diagnostics_format = "[#{s}] #{m} (#{c})",
-		root_dir = lspconfig.util.root_pattern("Gemfile", "compile_commands.json", ".ccls", ".git", "*.sln", ".vs", ".vscode", "Makefile", "CMakeLists.txt"),
-		detached = not is_win
-	})
+	-- local null_ls = require('null-ls')
+	-- null_ls.setup({
+	-- 	sources = {
+	-- 		--null_ls.builtins.code_actions.eslint_d,
+	-- 		--null_ls.builtins.diagnostics.eslint_d,
+	-- 		null_ls.builtins.diagnostics.rubocop,
+	-- 		--null_ls.builtins.formatting.eslint_d,
+	-- 		null_ls.builtins.formatting.prettier,
+	-- 		-- Example with args, not sure if .prettierrc takes precedence or not.
+	-- 		-- null_ls.builtins.formatting.prettier.with({ extra_args = { "--no-semi", "--single-quote" } }),
+	-- 		null_ls.builtins.formatting.rubocop,
+	-- 		null_ls.builtins.formatting.stylua,
+	-- 	},
+	-- 	diagnostics_format = "[#{s}] #{m} (#{c})",
+	-- 	root_dir = lspconfig.util.root_pattern("Gemfile", "compile_commands.json", ".ccls", ".git", "*.sln", ".vs", ".vscode", "Makefile", "CMakeLists.txt"),
+	-- 	detached = not is_win
+	-- })
 
 	lspconfig.angularls.setup{
 		capabilities = capabilities,
