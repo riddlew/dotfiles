@@ -150,3 +150,12 @@ alias sail="./vendor/bin/sail"
 # macos only                                 #
 ##############################################
 
+# Emacs client
+alias emacsc="emacsclient -c $@"
+alias emacss="emacs --fg-daemon &"
+
+# Restart emacs-plus daemon
+alias emacs-daemon-restart="brew services restart d12frosted/emacs-plus/emacs-plus@30"
+
+# vscode as a markdown editor
+alias vsmd="code --profile \"Markdown Only\" $@"
