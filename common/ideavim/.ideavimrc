@@ -63,6 +63,8 @@ vnoremap < <gv
 vnoremap > >gv
 " vnoremap = =gv
 noremap gy "+y
+vnoremap p "0P
+vnoremap P "0P
 map = <Action>(StretchSplitToRight)
 map - <Action>(StretchSplitToLeft)
 map + <Action>(StretchSplitToTop)
