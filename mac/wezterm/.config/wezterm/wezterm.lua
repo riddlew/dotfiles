@@ -22,14 +22,14 @@ config.window_padding = {
 
 config.font = wezterm.font_with_fallback {
 	-- 'Maple Mono Normal NL NF',
-	'SFMono Nerd Font',
-	-- 'JetBrainsMono Nerd Font',
+	-- 'SFMono Nerd Font',
+	'JetBrainsMono Nerd Font',
 	-- 'IosevkaMineNew Nerd Font Extended'
 	-- 'InputMono NF'
 	-- 'InputMine 1.3 Nerd Font'
 }
 config.font_size = 14.0
-config.line_height = 1.2
+config.line_height = 1.1
 
 -- Disable ligatures
 config.harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }
