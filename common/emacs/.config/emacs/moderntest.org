@@ -81,6 +81,18 @@ TREPEATED: <2022-02-26 Sat 10:00 .+1d/2d>
 
 
 
+* TODO Testing
+* NEXT Testing
+* WAITING Testing
+* DONE Testing
+* CANCELED Testing
+* INBOX Testing
+* PROJECT Testing
+* IDEA Testing
+* NOTE Testing
+
+
+
 * Todo Labels and Tags
 ** DONE Write =org-modern= :emacs:foss:coding:
 ** TODO Publish =org-modern=

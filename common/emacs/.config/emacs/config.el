@@ -24,6 +24,7 @@
 ;; Always install if nto installed.
 (setq use-package-always-ensure t)
 
+;; (toggle-debug-on-error)
 (setq use-package-verbose t
       use-package-expand-minimally nil)
 
@@ -39,6 +40,7 @@
 (setq completions-format 'vertical)
 (blink-cursor-mode 0)
 (setq fill-column 80)
+(setq display-fill-column-indicator-column 80)
 (column-number-mode 1) ;; show column # in modeline
 
 (setq uniquify-buffer-name-style 'forward
@@ -54,8 +56,10 @@
 
 (dolist (mode '(prog-mode-hook))
   (add-hook mode (lambda ()
-		   (display-fill-column-indicator-mode t)
-		   (setq display-fill-column-indicator-column 80))))
+		   (display-fill-column-indicator-mode t))))
+
+(setq word-wrap-by-category t)
+(modify-category-entry ?/ ?| (standard-category-table))
 
 (let ((backup-dir "/tmp/emacs/backups")
       (auto-saves-dir "/tmp/emacs/auto-saves"))
@@ -222,7 +226,7 @@
   (org-src-tab-acts-natively t)
   (org-hide-emphasis-markers t)
   (prettify-symbols-unprettify-at-point 'right-edge)
-  (org-fontify-done-headline t)
+  (org-fontify-done-headline nil)
   (org-fontify-whole-heading-line t)
   (org-tags-column 0)
   (org-list-indent-offset 2) ;; add a little extra indent to make it look good
@@ -233,15 +237,17 @@
 				 "|"
 				 "DONE(d!)"
 				 "CANCELED(c@!)")
-                       (sequence "PROJECT(p)"
-				 "IDEA(i)"
+                       (sequence "INBOX(i)"
+				 "PROJECT(p)"
+				 "IDEA(I)"
 				 "NOTE(o)")))
   (org-todo-keyword-faces
-   '(("AREA" . "DarkOrchid1")
-     ("[AREA]" . "DarkOrchid1")))
+   '(("INBOX" . "DarkOrchid1")
+     ("PROJECT" . +org-todo-test)
+     ("WAITING" :background "blue")))
   :custom-face
-  (org-done ((nil (:strike-through t :foreground "#808080"))))
-  (org-headline-done ((nil (:strike-through t :foreground "#808080"))))
+  ;;(org-done ((nil (:strike-through t :foreground "#808080"))))
+  ;;(org-headline-done ((nil (:strike-through t :foreground "#808080"))))
   (org-document-title ((t (:height 1.1 :weight bold))))
   (org-level-1 ((t (:height 1.1 :weight bold :background "#F9D4A0" :foreground "#000000" :overline "#000000" :underline "#000000"))))
   (org-level-2 ((t (:height 1.1 :weight bold :background "#EDE4FC" :foreground "#000000" :overline "#000000" :underline "#000000"))))
@@ -256,8 +262,8 @@
             	(set-fontset-font t 'symbol (font-spec :family "Symbols Nerd Font Mono") nil 'prepend)
             	(set-fontset-font "fontset-default" 'unicode '("Symbols Nerd Font Mono"))
             	(setq prettify-symbols-alist '(("[ ]" . "󰄱" )
-                                               ("[X]" . "󰱒")
-                                               ("[-]" . "󰛲")))
+					       ("[X]" . "󰱒")
+					       ("[-]" . "󰛲")))
             	(prettify-symbols-mode)))
   :config
   (org-babel-do-load-languages
@@ -290,6 +296,58 @@
   :commands toc-org-enable
   :init (add-hook 'org-mode-hook 'toc-org-enable))
 
+(defface wr/org-modern-todo-todo
+  '((t :background "#FF9E9E" ;; red
+       :foreground "#000000"
+       :box (:line-width -1 :color "#000000")))
+  "Todo todo face.")
+
+(defface wr/org-modern-todo-next
+  '((t :background "gray90" ;; gray
+       :foreground "#000000"
+       :box (:line-width -1 :color "#000000")))
+  "Next todo face.")
+
+(defface wr/org-modern-todo-waiting
+  '((t :background "#FFAC63" ;; orange
+       :foreground "#000000"
+       :box (:line-width -1 :color "#000000")))
+  "Waiting todo face.")
+
+(defface wr/org-modern-todo-done
+  '((t :background "#9EFFB0" ;; green
+       :foreground "#000000"
+       :box (:line-width -1 :color "#000000")))
+  "Done todo face.")
+
+(defface wr/org-modern-todo-canceled
+  '((t :background "#C72626" ;; dark red
+       :foreground "#FFFFFF"
+       :box (:line-width -1 :color "#000000")))
+  "Canceled todo face.")
+
+(defface wr/org-modern-todo-inbox
+  '((t :background "gold" ;; yellow
+       :foreground "#000000"
+       :box (:line-width -1 :color "#000000")))
+  "Inbox todo face.")
+
+(defface wr/org-modern-todo-project
+  '((t :background "#D4BFFF" ;; purple
+       :box (:line-width -1 :color "#000000")))
+  "Project todo face.")
+
+(defface wr/org-modern-todo-idea
+  '((t :background "#BFFFF6" ;; cyan
+       :box (:line-width -1 :color "#000000")))
+  "Idea todo face.")
+
+(defface wr/org-modern-todo-note
+  '((t :background "#9ECDFF" ;; blue
+       :box (:line-width -1 :color "#000000")))
+  "Note todo face.")
+
+
 (use-package org-modern
   :custom
   (org-modern-label-border 0.1)
@@ -303,7 +361,16 @@
   (org-modern-list '((?+ . "◦")
 		     (?- . "•")
 		     (?* . "•")))
-
+  (org-modern-todo-faces
+   '(("TODO" . wr/org-modern-todo-todo)
+     ("NEXT" . wr/org-modern-todo-next)
+     ("WAITING" . wr/org-modern-todo-waiting)
+     ("DONE" . wr/org-modern-todo-done)
+     ("CANCELED" . wr/org-modern-todo-canceled)
+     ("INBOX" . wr/org-modern-todo-inbox)
+     ("PROJECT" . wr/org-modern-todo-project)
+     ("IDEA" . wr/org-modern-todo-idea)
+     ("NOTE" . wr/org-modern-todo-note)))
   :custom-face
   (org-modern-label ((t (:inherit fixed-pitch :height 1.0 ))))
   :hook
