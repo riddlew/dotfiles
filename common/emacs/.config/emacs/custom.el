@@ -9,7 +9,7 @@
  '(ns-right-alternate-modifier 'super)
  '(package-selected-packages
    '(ef-themes evil-collection evil-commentary exec-path-from-shell
-	       expand-region expreg general hydra mixed-pitch
+	       expand-region expreg general hydra magit mixed-pitch
 	       nerd-icons org-appear org-contrib org-modern sudo-edit
 	       toc-org ultra-scroll))
  '(show-trailing-whitespace t))

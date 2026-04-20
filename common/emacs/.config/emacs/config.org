@@ -3,7 +3,11 @@
 #+DESCRIPTION: My Emacs config.
 #+STARTUP: showeverything
 #+PROPERTY: header-args :tangle yes
-#+PROPERTY: header-argive-compilation][Disable native compilation]]
+
+*TOC :toc_3:
+    - [[#lexical-binding][Lexical Binding]]
+    - [[#disable-gc][Disable GC]]
+    - [[#disable-native-compilation][Disable native compilation]]
     - [[#disable-gui-elements][Disable GUI elements]]
     - [[#set-default-window-size][Set default window size]]
     - [[#package-manager][Package Manager]]
@@ -17,6 +21,7 @@
     - [[#whitespace][Whitespace]]
     - [[#y-or-n-instead-of-yes-or-no][Y-or-N instead of Yes-or-No]]
     - [[#skip-special-buffers][Skip Special Buffers]]
+    - [[#dired-settings][Dired Settings]]
 - [[#custom-functions][Custom Functions]]
     - [[#reset-font-zoom][Reset font zoom]]
     - [[#open-config-file][Open config file]]
@@ -26,7 +31,7 @@
         - [[#ef-themes][EF Themes]]
     - [[#evil][Evil]]
     - [[#general][General]]
-    - [[#which-key][Which-Key]]
+    - [[#disabled-which-key][(DISABLED) Which-Key]]
     - [[#nerd-icons][Nerd Icons]]
     - [[#org-mode][Org Mode]]
         - [[#variable-pitch-org-old][Variable Pitch Org (OLD)]]
@@ -38,6 +43,7 @@
     - [[#expand-region][Expand Region]]
     - [[#sudo-edit][Sudo Edit]]
     - [[#hydra][Hydra]]
+    - [[#magit][Magit]]
     - [[#packages-to-install][Packages to install]]
 - [[#keybinds][Keybinds]]
 - [[#other-hooks][Other Hooks]]
@@ -170,6 +176,10 @@ Enable to turn on debugging if you get unhelpful messages like
   (setq recentf-max-saved-items 100)
   (global-auto-revert-mode t)
   (setq completions-format 'vertical)
+  (blink-cursor-mode 0)
+  (setq fill-column 80)
+  (setq display-fill-column-indicator-column 80)
+  (column-number-mode 1) ;; show column # in modeline
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
@@ -178,8 +188,26 @@ Enable to turn on debugging if you get unhelpful messages like
         frame-resize-pixelwise t
         load-prefer-newer t
         backup-by-copying t
+        global-auto-revert-non-file-buffers t ;; auto revert dired and ibuffer
+        kill-do-not-save-duplicates t
         custom-file (expand-file-name "custom.el" user-emacs-directory))
 #+END_SRC
+
+
+Delete selection when typing after selecting text.
+
+#+begin_src emacs-lisp
+  (delete-selection-mode 1)
+#+end_src
+
+
+Show column indicator for certain modes.
+
+#+begin_src emacs-lisp
+    (dolist (mode '(prog-mode-hook))
+      (add-hook mode (lambda ()
+    		   (display-fill-column-indicator-mode t))))
+#+end_src
 
 
 ** Backup files directory
@@ -316,7 +344,16 @@ When navigationg using ~previous-buffer~ and ~next-buffer~, this skips the annoy
   					  "\\*Help\\*"
   					  "\\*Completions\\*"
   					  "\\*Compile-Log\\*"
+  					  "\\*Ibuffer\\*"
   					  "\\*Native-compile-Log"))
+#+end_src
+
+
+** Dired Settings
+
+#+begin_src emacs-lisp
+  ;; Stop dired from spawning so many buffers when navigating
+  (setq dired-kill-when-opening-new-dired-buffer t)
 #+end_src
 
 
@@ -409,9 +446,20 @@ When navigationg using ~previous-buffer~ and ~next-buffer~, this skips the annoy
 #+END_SRC
 
 
-** Which-Key
+** (DISABLED) Which-Key
 
-#+BEGIN_SRC emacs-lisp
+Rather than having which-key pop up all the time, just use ~C-h~ to popup a keymap on the side. That way it's on-demand, rather that popping up constantly.
+
+#+BEGIN_SRC emacs-lisp :tangle no
+  ;; ISSUE: which-key is blocked by echo area at the bottom. I'm not sure why.
+  ;; Hacky solution at https://discourse.doomemacs.org/t/echo-area-covers-bottom-of-which-key/3026/2
+  ;; for Doom, haven't found a solution for vanilla.
+  ;;
+  ;; (defadvice! fix-which-key--show-popup (fn act-popup-dim)
+  ;; :around #'which-key--show-popup
+  ;; (let ((height (car act-popup-dim))
+  ;;       (width  (cdr act-popup-dim)))
+  ;;   (funcall fn (cons (+ height 1) width))))
   (use-package which-key
     :init
     (which-key-mode 1)
@@ -679,6 +727,8 @@ See [[file:moderntest.org][moderntest.org]] for org modern / org mode styling te
 
 *** Org Contrib
 
+Add this so I can get ~ox-extras~ so that I can ~:ignore:~ headings I don't want to export.
+
 #+begin_src emacs-lisp
   (use-package org-contrib
     :config
@@ -748,6 +798,21 @@ This is useful if we edit a file, only to find out we needed sudo privileges.
 #+end_src
 
 
+** Magit
+
+#+begin_src emacs-lisp
+  (use-package magit
+    :defer t
+    ;; :commands
+    ;; (magit-status magit-get-current-branch)
+    :custom
+    ;; Open in the same window, not a different window
+    ;; (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
+    ;; Show character level changes
+    (magit-diff-refine-hunk 'all))
+#+end_src
+
+
 ** TODO Packages to install
 
 - Company / LSP
@@ -764,6 +829,8 @@ This is useful if we edit a file, only to find out we needed sudo privileges.
 - consult-xref-stack
 - Bufler?
 - dumb-jump? (not sure I need this yet)
+
+- [X] Magit
 
 - Go through old config in ~~/.config/emacs/old_config_todo/~
 - how to mark buffers to delete?
@@ -782,6 +849,8 @@ Global prefix lets us access the leader key menu from insert / emacs mode.
      "M-;" 'evil-commentary
      "C-=" 'er/expand-region)
 
+    ;; s sneak
+
     (general-create-definer leader-keys
       :prefix "SPC"
       :global-prefix "C-S-SPC")
@@ -793,6 +862,16 @@ Global prefix lets us access the leader key menu from insert / emacs mode.
     (leader-keys
       :states '(normal visual insert emacs)
       :keymaps 'override
+
+      ;; " list registers
+
+      ;; / swiper
+
+      ;; tab visit last file
+
+      ;; a align
+      ;; a e easyalign
+
       "b" '(:ignore t :wk "buffer")
       "b b" '(switch-to-buffer :wk identity)
       "b i" '(ibuffer :wk identity)
@@ -834,7 +913,7 @@ Global prefix lets us access the leader key menu from insert / emacs mode.
       ;; f g grep/ripgrep/ag
 
       "g" '(:ignore t :wk "git TODO")
-      ;; gs magit
+      "g s" '(magit-status :wk identity)
       ;; gb show branches
       ;; gB blame?
       ;; gBl blame line?
@@ -845,19 +924,28 @@ Global prefix lets us access the leader key menu from insert / emacs mode.
       ;; gl git log all
       ;; gL git log branch
 
-      "H" '(:ignore t :wk "help")
-      "H f" '(describe-function :wk identity)
-      "H F" '(describe-face :wk identity)
-      "H v" '(describe-variable :wk identity)
-      "H k" '(describe-key :wk identity)
+      "h" '(:ignore t :wk "help")
+      "h f" '(describe-function :wk identity)
+      "h F" '(describe-face :wk identity)
+      "h v" '(describe-variable :wk identity)
+      "h k" '(describe-key :wk identity)
+      "h K" '(describe-key :wk identity)
+
+      ;; m marks
 
       "n" '(:ignore t :wk "treemacs/nerdtree TODO")
+      ;; N treemacs/nerdtree current file
 
       "o" '(:ignore t :wk "org TODO")
 
       "p" '(:ignore t :wk "harpoon TODO")
 
+      ;; s easymotion
+      ;; S easymotion overwin
+
       "t" '(:ignore t :wk "terminal TODO")
+
+      ;; u undo tree
 
       "w" '(:ignore t :wk "window")
       "w +" '(hydra-window-resize/body :wk "+height")

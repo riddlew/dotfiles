@@ -37,13 +37,25 @@
 (setq recentf-max-saved-items 100)
 (global-auto-revert-mode t)
 (setq completions-format 'vertical)
+(blink-cursor-mode 0)
+(setq fill-column 80)
+(column-number-mode 1) ;; show column # in modeline
 
 (setq uniquify-buffer-name-style 'forward
       window-resize-pixelwise t
       frame-resize-pixelwise t
       load-prefer-newer t
       backup-by-copying t
+      global-auto-revert-non-file-buffers t ;; auto revert dired and ibuffer
+      kill-do-not-save-duplicates t
       custom-file (expand-file-name "custom.el" user-emacs-directory))
+
+(delete-selection-mode 1)
+
+(dolist (mode '(prog-mode-hook))
+  (add-hook mode (lambda ()
+		   (display-fill-column-indicator-mode t)
+		   (setq display-fill-column-indicator-column 80))))
 
 (let ((backup-dir "/tmp/emacs/backups")
       (auto-saves-dir "/tmp/emacs/auto-saves"))
@@ -136,7 +148,11 @@
 					  "\\*Help\\*"
 					  "\\*Completions\\*"
 					  "\\*Compile-Log\\*"
+					  "\\*Ibuffer\\*"
 					  "\\*Native-compile-Log"))
+
+;; Stop dired from spawning so many buffers when navigating
+(setq dired-kill-when-opening-new-dired-buffer t)
 
 (defun wr/text-scale-reset ()
   (interactive)
@@ -189,23 +205,6 @@
 (use-package general
   :config
   (general-evil-setup))
-
-(use-package which-key
-  :init
-  (which-key-mode 1)
-  :config
-  (setq which-key-side-window-location 'bottom
-	which-key-sort-order #'which-key-key-order-alpha
-	which-key-sort-uppercase-first nil
-	which-key-add-column-padding 1
-	which-key-max-display-columns nil
-	which-key-min-display-lines 6
-	which-key-side-window-slot -10
-	which-key-side-window-max-height 0.25
-	which-key-idle-delay 0.8
-	which-key-max-description-length 30
-	which-key-allow-imprecise-window-fit t))
-	;;which-key-separator "  "))
 
 (use-package nerd-icons)
 
@@ -359,6 +358,16 @@
 (dolist (key '("<" ">" "-" "_" "+" "="))
   (define-key evil-window-map (kbd key) 'hydra-window-resize/body))
 
+(use-package magit
+  :defer t
+  ;; :commands
+  ;; (magit-status magit-get-current-branch)
+  :custom
+  ;; Open in the same window, not a different window
+  ;; (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
+  ;; Show character level changes
+  (magit-diff-refine-hunk 'all))
+
 (with-eval-after-load 'general
   (general-define-key
    :states '(normal visual)
@@ -366,6 +375,8 @@
    "{" 'previous-buffer
    "M-;" 'evil-commentary
    "C-=" 'er/expand-region)
+
+  ;; s sneak
 
   (general-create-definer leader-keys
     :prefix "SPC"
@@ -378,6 +389,16 @@
   (leader-keys
     :states '(normal visual insert emacs)
     :keymaps 'override
+
+    ;; " list registers
+
+    ;; / swiper
+
+    ;; tab visit last file
+
+    ;; a align
+    ;; a e easyalign
+
     "b" '(:ignore t :wk "buffer")
     "b b" '(switch-to-buffer :wk identity)
     "b i" '(ibuffer :wk identity)
@@ -419,7 +440,7 @@
     ;; f g grep/ripgrep/ag
 
     "g" '(:ignore t :wk "git TODO")
-    ;; gs magit
+    "g s" '(magit-status :wk identity)
     ;; gb show branches
     ;; gB blame?
     ;; gBl blame line?
@@ -430,19 +451,28 @@
     ;; gl git log all
     ;; gL git log branch
 
-    "H" '(:ignore t :wk "help")
-    "H f" '(describe-function :wk identity)
-    "H F" '(describe-face :wk identity)
-    "H v" '(describe-variable :wk identity)
-    "H k" '(describe-key :wk identity)
+    "h" '(:ignore t :wk "help")
+    "h f" '(describe-function :wk identity)
+    "h F" '(describe-face :wk identity)
+    "h v" '(describe-variable :wk identity)
+    "h k" '(describe-key :wk identity)
+    "h K" '(describe-key :wk identity)
+
+    ;; m marks
 
     "n" '(:ignore t :wk "treemacs/nerdtree TODO")
+    ;; N treemacs/nerdtree current file
 
     "o" '(:ignore t :wk "org TODO")
 
     "p" '(:ignore t :wk "harpoon TODO")
 
+    ;; s easymotion
+    ;; S easymotion overwin
+
     "t" '(:ignore t :wk "terminal TODO")
+
+    ;; u undo tree
 
     "w" '(:ignore t :wk "window")
     "w +" '(hydra-window-resize/body :wk "+height")
