@@ -4,58 +4,69 @@
 #+STARTUP: showeverything
 #+PROPERTY: header-args :tangle yes
 
-*TOC :toc_3:
-    - [[#lexical-binding][Lexical Binding]]
-    - [[#disable-gc][Disable GC]]
-    - [[#disable-native-compilation][Disable native compilation]]
-    - [[#disable-gui-elements][Disable GUI elements]]
-    - [[#set-default-window-size][Set default window size]]
-    - [[#package-manager][Package Manager]]
-    - [[#useful-debugging][Useful debugging]]
+* TOC :toc_3: 
+- [[#current-issues][Current Issues]]
+- [[#setup][Setup]]
+  - [[#lexical-binding][Lexical Binding]]
+  - [[#disable-gc][Disable GC]]
+  - [[#disable-native-compilation][Disable native compilation]]
+  - [[#disable-gui-elements][Disable GUI elements]]
+  - [[#set-default-window-size][Set default window size]]
+  - [[#package-manager][Package Manager]]
+  - [[#useful-debugging][Useful debugging]]
 - [[#settings--variables][Settings / Variables]]
-    - [[#backup-files-directory][Backup files directory]]
-    - [[#utf-8][UTF-8]]
-    - [[#fonts][Fonts]]
-    - [[#os-specific][OS Specific]]
-    - [[#line-numbers-and-line-behavior][Line Numbers and Line Behavior]]
-    - [[#whitespace][Whitespace]]
-    - [[#y-or-n-instead-of-yes-or-no][Y-or-N instead of Yes-or-No]]
-    - [[#skip-special-buffers][Skip Special Buffers]]
-    - [[#dired-settings][Dired Settings]]
+  - [[#backup-files-directory][Backup files directory]]
+  - [[#utf-8][UTF-8]]
+  - [[#fonts][Fonts]]
+  - [[#os-specific][OS Specific]]
+  - [[#line-numbers-and-line-behavior][Line Numbers and Line Behavior]]
+  - [[#whitespace][Whitespace]]
+  - [[#y-or-n-instead-of-yes-or-no][Y-or-N instead of Yes-or-No]]
+  - [[#skip-special-buffers][Skip Special Buffers]]
+  - [[#dired-settings][Dired Settings]]
 - [[#custom-functions][Custom Functions]]
-    - [[#reset-font-zoom][Reset font zoom]]
-    - [[#open-config-file][Open config file]]
-    - [[#tangle-and-reload-config-file][Tangle and reload config file]]
+  - [[#reset-font-zoom][Reset font zoom]]
+  - [[#open-config-file][Open config file]]
+  - [[#tangle-and-reload-config-file][Tangle and reload config file]]
+  - [[#add-trailing-space-to-all-headings-in-org-mode][Add trailing space to all headings in org mode]]
 - [[#packages--after-hooks][Packages / After Hooks]]
-    - [[#themes][Themes]]
-        - [[#ef-themes][EF Themes]]
-    - [[#evil][Evil]]
-    - [[#general][General]]
-    - [[#disabled-which-key][(DISABLED) Which-Key]]
-    - [[#nerd-icons][Nerd Icons]]
-    - [[#org-mode][Org Mode]]
-        - [[#variable-pitch-org-old][Variable Pitch Org (OLD)]]
-        - [[#toc-org][toc-org]]
-        - [[#org-modern][Org Modern]]
-        - [[#org-appear][Org Appear]]
-        - [[#org-contrib][Org Contrib]]
-    - [[#ultra-scroll-smooth-scrolling][Ultra-scroll (smooth scrolling)]]
-    - [[#expand-region][Expand Region]]
-    - [[#sudo-edit][Sudo Edit]]
-    - [[#hydra][Hydra]]
-    - [[#magit][Magit]]
-    - [[#packages-to-install][Packages to install]]
+  - [[#themes][Themes]]
+    - [[#ef-themes][EF Themes]]
+  - [[#evil][Evil]]
+  - [[#general][General]]
+  - [[#disabled-which-key][(DISABLED) Which-Key]]
+  - [[#nerd-icons][Nerd Icons]]
+  - [[#org-mode][Org Mode]]
+    - [[#variable-pitch-org-old][Variable Pitch Org (OLD)]]
+    - [[#toc-org][toc-org]]
+    - [[#org-modern][Org Modern]]
+    - [[#org-appear][Org Appear]]
+    - [[#org-contrib][Org Contrib]]
+    - [[#plantuml][PlantUML]]
+  - [[#ultra-scroll-smooth-scrolling][Ultra-scroll (smooth scrolling)]]
+  - [[#expand-region][Expand Region]]
+  - [[#sudo-edit][Sudo Edit]]
+  - [[#hydra][Hydra]]
+  - [[#magit][Magit]]
+  - [[#lsp][LSP]]
+  - [[#packages-to-install][Packages to install]]
 - [[#keybinds][Keybinds]]
 - [[#other-hooks][Other Hooks]]
-    - [[#disabled-prog-mode-line-numbers][(DISABLED) Prog Mode Line Numbers]]
-    - [[#show-startup-time][Show startup time]]
+  - [[#disabled-prog-mode-line-numbers][(DISABLED) Prog Mode Line Numbers]]
+  - [[#show-startup-time][Show startup time]]
 - [[#misc][Misc]]
-    - [[#disabled-emacs-server][(DISABLED) Emacs Server]]
+  - [[#disabled-emacs-server][(DISABLED) Emacs Server]]
 - [[#helpful-links][Helpful Links]]
 
-* Setup
+* Current Issues 
 
-** Lexical Binding
+- ~pixel-scroll-precision-mode~ does not work correctly with a mouse and still skips over large images. ~ultra-scroll~ did not fix it. It will only work if the window is resized at least once after opening emacs. This issue does not occur using the trackpad.
+
+
+* Setup 
+
+
+** Lexical Binding 
 
 This needs to be the first line
 
@@ -68,7 +79,7 @@ This needs to be the first line
 #+END_SRC
 
 
-** Disable GC
+** Disable GC 
 
 Disable GC to make startup faster. This *MUST* be re-enabled at the end, or else it will cause issues like freezing (the ~add-hook~ takes care of this for us).
 
@@ -85,7 +96,7 @@ The hook also ensures that it will run even if the config causes an error.
 #+END_SRC
 
 
-** Disable native compilation
+** Disable native compilation 
 
 Disable native compilation because GCC is not installed.
 
@@ -96,7 +107,7 @@ Disable native compilation because GCC is not installed.
 #+END_SRC
 
 
-** Disable GUI elements
+** Disable GUI elements 
 
 #+BEGIN_SRC emacs-lisp :tangle "~/.config/emacs/early-init.el"
   (menu-bar-mode -1)
@@ -107,7 +118,7 @@ Disable native compilation because GCC is not installed.
 #+END_SRC
 
 
-** Set default window size
+** Set default window size 
 
 #+BEGIN_SRC emacs-lisp :tangle "~/.config/emacs/early-init.el"
   (setq default-frame-alist
@@ -119,7 +130,7 @@ Disable native compilation because GCC is not installed.
 #+END_SRC
 
 
-** Package Manager
+** Package Manager 
 
 Rather than install a package manager, I want to see if the default ~use-package~ along with the ~:vc~ tag for GitHub / specific commits or branches will be enough for me.
 
@@ -153,7 +164,7 @@ Rather than install a package manager, I want to see if the default ~use-package
 #+END_SRC
 
 
-** Useful debugging
+** Useful debugging 
 
 Enable to turn on debugging if you get unhelpful messages like
 =Error (use-package): Cannot load x=.
@@ -165,7 +176,7 @@ Enable to turn on debugging if you get unhelpful messages like
 #+END_SRC
 
 
-* Settings / Variables
+* Settings / Variables 
 
 #+BEGIN_SRC emacs-lisp
   (electric-pair-mode t)
@@ -181,7 +192,9 @@ Enable to turn on debugging if you get unhelpful messages like
   (blink-cursor-mode 0)
   (setq fill-column 80)
   (setq display-fill-column-indicator-column 80)
+  (setq ring-bell-function 'ignore)
   (column-number-mode 1) ;; show column # in modeline
+  (pixel-scroll-precision-mode) ;; should allow smooth scrolling over images in org mode
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
@@ -220,7 +233,7 @@ Word wrap only wraps at space by default. We could use ~toggle-truncate-lines~ i
 #+end_src
 
 
-** Backup files directory
+** Backup files directory 
 
 This prevents emacs from spamming files with tildes everywhere, like =~init.el=.
 
@@ -244,7 +257,7 @@ This prevents emacs from spamming files with tildes everywhere, like =~init.el=.
 #+END_SRC
 
 
-** UTF-8
+** UTF-8 
 
 #+BEGIN_SRC emacs-lisp
   (set-language-environment "UTF-8")
@@ -256,7 +269,7 @@ This prevents emacs from spamming files with tildes everywhere, like =~init.el=.
 #+END_SRC
 
 
-** Fonts
+** Fonts 
 
 #+BEGIN_SRC emacs-lisp
   (setq
@@ -293,7 +306,7 @@ This prevents emacs from spamming files with tildes everywhere, like =~init.el=.
 #+END_SRC
 
 
-** OS Specific
+** OS Specific 
 
 #+BEGIN_SRC emacs-lisp
   (cond ((eq system-type 'darwin)
@@ -321,7 +334,7 @@ This prevents emacs from spamming files with tildes everywhere, like =~init.el=.
 #+END_SRC
 
 
-** Line Numbers and Line Behavior
+** Line Numbers and Line Behavior 
 
 #+BEGIN_SRC emacs-lisp
   (global-display-line-numbers-mode 1)
@@ -329,14 +342,14 @@ This prevents emacs from spamming files with tildes everywhere, like =~init.el=.
 #+END_SRC
 
 
-** Whitespace
+** Whitespace 
 
 #+BEGIN_SRC emacs-lisp
-(custom-set-variables '(show-trailing-whitespace t))
+(custom-set-variables '(show-trailing-whitespace nil)) ;; turns this off because it's annoying and sometimes I keep whitespacing in headings to make it look even
 #+END_SRC
 
 
-** Y-or-N instead of Yes-or-No
+** Y-or-N instead of Yes-or-No 
 
 
 #+begin_src emacs-lisp
@@ -344,7 +357,7 @@ This prevents emacs from spamming files with tildes everywhere, like =~init.el=.
 #+end_src
 
 
-** Skip Special Buffers
+** Skip Special Buffers 
 
 When navigationg using ~previous-buffer~ and ~next-buffer~, this skips the annoying special buffers like ~*Messages*~. Keeps ~*scratch*~ though.
 
@@ -359,7 +372,7 @@ When navigationg using ~previous-buffer~ and ~next-buffer~, this skips the annoy
 #+end_src
 
 
-** Dired Settings
+** Dired Settings 
 
 #+begin_src emacs-lisp
   ;; Stop dired from spawning so many buffers when navigating
@@ -367,9 +380,9 @@ When navigationg using ~previous-buffer~ and ~next-buffer~, this skips the annoy
 #+end_src
 
 
-* Custom Functions
+* Custom Functions 
 
-** Reset font zoom
+** Reset font zoom 
 
 #+BEGIN_SRC emacs-lisp
   (defun wr/text-scale-reset ()
@@ -378,7 +391,7 @@ When navigationg using ~previous-buffer~ and ~next-buffer~, this skips the annoy
 #+END_SRC
 
 
-** Open config file
+** Open config file 
 
 #+BEGIN_SRC emacs-lisp
   (defun wr/open-config-org ()
@@ -387,7 +400,7 @@ When navigationg using ~previous-buffer~ and ~next-buffer~, this skips the annoy
 #+END_SRC
 
 
-** Tangle and reload config file
+** Tangle and reload config file 
 
 #+BEGIN_SRC emacs-lisp
   (defun wr/tangle-and-reload-config ()
@@ -398,11 +411,28 @@ When navigationg using ~previous-buffer~ and ~next-buffer~, this skips the annoy
 #+END_SRC
 
 
-* Packages / After Hooks
+** Add trailing space to all headings in org mode 
 
-** Themes
+The current theme looks better when there is a space at the end of all headings. This will add spaces to the end of all headings if there isn't already a space.
 
-*** EF Themes
+#+begin_src emacs-lisp
+  (defun wr/org-add-trailing-space-to-headings ()
+    "Ensures every org heading ends with a trailing space."
+    (interactive)
+    (save-excursion
+      (goto-char (point-min))
+      (while (re-search-forward "^\\*+ " nil t)
+        (end-of-line)
+        (unless (eq (char-before) ?\s)
+  	(insert " ")))))
+#+end_src
+
+
+* Packages / After Hooks 
+
+** Themes 
+
+*** EF Themes 
 
 #+BEGIN_SRC emacs-lisp
   (use-package ef-themes
@@ -415,7 +445,7 @@ When navigationg using ~previous-buffer~ and ~next-buffer~, this skips the annoy
 #+END_SRC
 
 
-** Evil
+** Evil 
 
 #+BEGIN_SRC emacs-lisp
   (use-package evil
@@ -447,7 +477,8 @@ When navigationg using ~previous-buffer~ and ~next-buffer~, this skips the annoy
     (evil-commentary-mode))
 #+END_SRC
 
-** General
+
+** General 
 
 #+BEGIN_SRC emacs-lisp
   (use-package general
@@ -456,7 +487,7 @@ When navigationg using ~previous-buffer~ and ~next-buffer~, this skips the annoy
 #+END_SRC
 
 
-** (DISABLED) Which-Key
+** (DISABLED) Which-Key 
 
 Rather than having which-key pop up all the time, just use ~C-h~ to popup a keymap on the side. That way it's on-demand, rather that popping up constantly.
 
@@ -489,14 +520,14 @@ Rather than having which-key pop up all the time, just use ~C-h~ to popup a keym
 #+END_SRC
 
 
-** Nerd Icons
+** Nerd Icons 
 
 #+BEGIN_SRC emacs-lisp
   (use-package nerd-icons)
 #+END_SRC
 
 
-** Org Mode
+** Org Mode 
 
 See [[file:moderntest.org][moderntest.org]] for org modern / org mode styling tests.
 
@@ -516,20 +547,23 @@ See [[file:moderntest.org][moderntest.org]] for org modern / org mode styling te
     (org-hide-emphasis-markers t)
     (prettify-symbols-unprettify-at-point 'right-edge)
     (org-fontify-done-headline nil)
-    (org-fontify-whole-heading-line t)
+    (org-fontify-whole-heading-line nil) ;; made the heading go across the whole line
+    (org-cycle-separator-lines 1) ;; this ensures that collapsing all headings still keeps at least 1 space between headings
     (org-tags-column 0)
-    (org-list-indent-offset 2) ;; add a little extra indent to make it look good
+    ;; (org-list-indent-offset 2) ;; add a little extra indent to make it look good
+    (org-list-indent-offset 0)
+    (org-startup-with-inline-images t) ;; show inline images
     (x-underline-at-descent-line t)
     (org-todo-keywords '((sequence "TODO(t)"
-  				 "NEXT(n!/!)"
-  				 "WAITING(w@!/!)"
-  				 "|"
-  				 "DONE(d!)"
-  				 "CANCELED(c@!)")
+   				 "NEXT(n!/!)"
+   				 "WAITING(w@!/!)"
+   				 "|"
+   				 "DONE(d!)"
+   				 "CANCELED(c@!)")
                          (sequence "INBOX(i)"
-  				 "PROJECT(p)"
-  				 "IDEA(I)"
-  				 "NOTE(o)")))
+   				 "PROJECT(p)"
+   				 "IDEA(I)"
+   				 "NOTE(o)")))
     (org-todo-keyword-faces
      '(("INBOX" . "DarkOrchid1")
        ("PROJECT" . +org-todo-test)
@@ -546,14 +580,22 @@ See [[file:moderntest.org][moderntest.org]] for org modern / org mode styling te
     (org-level-6 ((t (:height 1.1 :weight bold :background "#D4ECD4" :foreground "#000000" :overline "#000000" :underline "#000000"))))
     (org-level-7 ((t (:height 1.1 :weight bold :background "#F0C8E0" :foreground "#000000" :overline "#000000" :underline "#000000"))))
     (org-level-8 ((t (:height 1.1 :weight bold :background "#F5EAA0" :foreground "#000000" :overline "#000000" :underline "#000000"))))
+    ;; (org-level-1 ((t (:height 1.1 :weight bold :background "#F9D4A0" :foreground "#000000" ))))
+    ;; (org-level-2 ((t (:height 1.1 :weight bold :background "#EDE4FC" :foreground "#000000" ))))
+    ;; (org-level-3 ((t (:height 1.1 :weight bold :background "#FCE4C8" :foreground "#000000" ))))
+    ;; (org-level-4 ((t (:height 1.1 :weight bold :background "#C8E0F0" :foreground "#000000" ))))
+    ;; (org-level-5 ((t (:height 1.1 :weight bold :background "#FAD0B8" :foreground "#000000" ))))
+    ;; (org-level-6 ((t (:height 1.1 :weight bold :background "#D4ECD4" :foreground "#000000" ))))
+    ;; (org-level-7 ((t (:height 1.1 :weight bold :background "#F0C8E0" :foreground "#000000" ))))
+    ;; (org-level-8 ((t (:height 1.1 :weight bold :background "#F5EAA0" :foreground "#000000" ))))
     :hook
     (org-mode . (lambda ()
-              	(set-fontset-font t 'symbol (font-spec :family "Symbols Nerd Font Mono") nil 'prepend)
-              	(set-fontset-font "fontset-default" 'unicode '("Symbols Nerd Font Mono"))
-              	(setq prettify-symbols-alist '(("[ ]" . "󰄱" )
-  					       ("[X]" . "󰱒")
-  					       ("[-]" . "󰛲")))
-              	(prettify-symbols-mode)))
+               	(set-fontset-font t 'symbol (font-spec :family "Symbols Nerd Font Mono") nil 'prepend)
+               	(set-fontset-font "fontset-default" 'unicode '("Symbols Nerd Font Mono"))
+               	(setq prettify-symbols-alist '(("[ ]" . "󰄱" )
+   					       ("[X]" . "󰱒")
+   					       ("[-]" . "󰛲")))
+               	(prettify-symbols-mode)))
     :config
     (org-babel-do-load-languages
      'org-babel-load-languages
@@ -564,8 +606,11 @@ See [[file:moderntest.org][moderntest.org]] for org modern / org mode styling te
        (shell . t)
        (dot . t)
        (org . t)))
+    (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
     )
 
+  ;; redisplay images after executing code blocks
+  (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
 
   (with-eval-after-load 'org
     (setq org-structure-template-alist
@@ -584,7 +629,7 @@ See [[file:moderntest.org][moderntest.org]] for org modern / org mode styling te
 
 
 
-*** Variable Pitch Org (OLD)
+*** Variable Pitch Org (OLD) 
 
 #+BEGIN_SRC emacs-lisp :tangle no
   (use-package mixed-pitch
@@ -694,7 +739,7 @@ See [[file:moderntest.org][moderntest.org]] for org modern / org mode styling te
 #+END_SRC
 
 
-*** toc-org
+*** toc-org 
 
 #+BEGIN_SRC emacs-lisp
   (use-package toc-org
@@ -703,7 +748,7 @@ See [[file:moderntest.org][moderntest.org]] for org modern / org mode styling te
 #+END_SRC
 
 
-*** Org Modern
+*** Org Modern 
 
 #+BEGIN_SRC emacs-lisp
   (defface wr/org-modern-todo-todo
@@ -788,7 +833,7 @@ See [[file:moderntest.org][moderntest.org]] for org modern / org mode styling te
 #+END_SRC
 
 
-*** Org Appear
+*** Org Appear 
 
 #+BEGIN_SRC emacs-lisp
   (use-package org-appear
@@ -799,7 +844,7 @@ See [[file:moderntest.org][moderntest.org]] for org modern / org mode styling te
 #+END_SRC
 
 
-*** Org Contrib
+*** Org Contrib 
 
 Add this so I can get ~ox-extras~ so that I can ~:ignore:~ headings I don't want to export.
 
@@ -811,7 +856,14 @@ Add this so I can get ~ox-extras~ so that I can ~:ignore:~ headings I don't want
 #+end_src
 
 
-** Ultra-scroll (smooth scrolling)
+*** PlantUML 
+
+#+begin_src emacs-lisp
+  (setq org-plantuml-jar-path (expand-file-name "~/lsp/plantuml-1.2026.2.jar"))
+#+end_src
+
+
+** Ultra-scroll (smooth scrolling) 
 
 #+BEGIN_SRC emacs-lisp
   (use-package ultra-scroll
@@ -824,14 +876,14 @@ Add this so I can get ~ox-extras~ so that I can ~:ignore:~ headings I don't want
 #+END_SRC
 
 
-** Expand Region
+** Expand Region 
 
 #+BEGIN_SRC emacs-lisp
   (use-package expand-region)
 #+END_SRC
 
 
-** Sudo Edit
+** Sudo Edit 
 
 This is useful if we edit a file, only to find out we needed sudo privileges.
 
@@ -840,7 +892,7 @@ This is useful if we edit a file, only to find out we needed sudo privileges.
 #+end_src
 
 
-** Hydra
+** Hydra 
 
 
 #+begin_src emacs-lisp
@@ -872,7 +924,7 @@ This is useful if we edit a file, only to find out we needed sudo privileges.
 #+end_src
 
 
-** Magit
+** Magit 
 
 #+begin_src emacs-lisp
   (use-package magit
@@ -881,13 +933,19 @@ This is useful if we edit a file, only to find out we needed sudo privileges.
     ;; (magit-status magit-get-current-branch)
     :custom
     ;; Open in the same window, not a different window
-    ;; (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
+    ;;(magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
     ;; Show character level changes
     (magit-diff-refine-hunk 'all))
 #+end_src
 
 
-** TODO Packages to install
+** TODO LSP 
+
+
+
+
+
+** TODO Packages to install 
 
 - Company / LSP
 - Vertico
@@ -910,7 +968,7 @@ This is useful if we edit a file, only to find out we needed sudo privileges.
 - how to mark buffers to delete?
 
 
-* Keybinds
+* Keybinds 
 
 Global prefix lets us access the leader key menu from insert / emacs mode.
 
@@ -988,15 +1046,11 @@ Global prefix lets us access the leader key menu from insert / emacs mode.
 
       "g" '(:ignore t :wk "git TODO")
       "g s" '(magit-status :wk identity)
-      ;; gb show branches
+      "g l" '(magit-log :wk identity) ;; show branch commits by selecting "other (o)"
+      "g f" '(magit-log-buffer-file :wk identity)
+      "g b" '(magit-show-refs :wk "show branches")
       ;; gB blame?
       ;; gBl blame line?
-      ;; gc +commits
-      ;; gcc show commits
-      ;; gcb show branch commits
-      ;; gf git file past versions?
-      ;; gl git log all
-      ;; gL git log branch
 
       "h" '(:ignore t :wk "help")
       "h f" '(describe-function :wk identity)
@@ -1087,9 +1141,10 @@ Global prefix lets us access the leader key menu from insert / emacs mode.
 #+END_SRC
 
 
-* Other Hooks
+* Other Hooks 
 
-** (DISABLED) Prog Mode Line Numbers
+
+** (DISABLED) Prog Mode Line Numbers 
 
 Display line numbers in programming modes. TODO: enable this for all modes? At least prog and org.
 
@@ -1100,7 +1155,7 @@ Currently disabled because we are using ~(global-display-line-numbers-mode 1)~.
 #+END_SRC
 
 
-** Show startup time
+** Show startup time 
 
 #+BEGIN_SRC emacs-lisp
   (add-hook 'emacs-startup-hook
@@ -1113,9 +1168,21 @@ Currently disabled because we are using ~(global-display-line-numbers-mode 1)~.
 #+END_SRC
 
 
-* Misc
+** Add trailing spaces to org mode headings on save 
 
-** (DISABLED) Emacs Server
+#+begin_src emacs-lisp
+  (add-hook 'org-mode-hook
+          (lambda ()
+            (add-hook 'before-save-hook
+                      #'wr/org-add-trailing-space-to-headings
+                      nil t)))
+#+end_src
+
+
+* Misc 
+
+
+** (DISABLED) Emacs Server 
 
 Use emacsclient to open files in an already-running Emacs process (TODO).
 
@@ -1125,7 +1192,7 @@ Use emacsclient to open files in an already-running Emacs process (TODO).
 #+END_SRC
 
 
-* Helpful Links
+* Helpful Links 
 
 - https://sam217pa.github.io/2016/09/23/keybindings-strategies-in-emacs/
 - https://github.com/zzamboni/dot-emacs/

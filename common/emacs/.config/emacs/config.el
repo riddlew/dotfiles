@@ -41,7 +41,9 @@
 (blink-cursor-mode 0)
 (setq fill-column 80)
 (setq display-fill-column-indicator-column 80)
+(setq ring-bell-function 'ignore)
 (column-number-mode 1) ;; show column # in modeline
+(pixel-scroll-precision-mode) ;; should allow smooth scrolling over images in org mode
 
 (setq uniquify-buffer-name-style 'forward
       window-resize-pixelwise t
@@ -143,7 +145,7 @@
 (global-display-line-numbers-mode 1)
 (global-visual-line-mode t)
 
-(custom-set-variables '(show-trailing-whitespace t))
+(custom-set-variables '(show-trailing-whitespace nil)) ;; turns this off because it's annoying and sometimes I keep whitespacing in headings to make it look even
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
@@ -171,6 +173,16 @@
   (message "Tangling file %s" (expand-file-name "config.org" user-emacs-directory))
   (org-babel-tangle-file (expand-file-name "config.org" user-emacs-directory))
   (load-file (expand-file-name "config.el" user-emacs-directory)))
+
+(defun wr/org-add-trailing-space-to-headings ()
+  "Ensures every org heading ends with a trailing space."
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (while (re-search-forward "^\\*+ " nil t)
+      (end-of-line)
+      (unless (eq (char-before) ?\s)
+	(insert " ")))))
 
 (use-package ef-themes
   :vc (:url "https://github.com/protesilaos/ef-themes" :rev :newest)
@@ -227,20 +239,23 @@
   (org-hide-emphasis-markers t)
   (prettify-symbols-unprettify-at-point 'right-edge)
   (org-fontify-done-headline nil)
-  (org-fontify-whole-heading-line t)
+  (org-fontify-whole-heading-line nil) ;; made the heading go across the whole line
+  (org-cycle-separator-lines 1) ;; this ensures that collapsing all headings still keeps at least 1 space between headings
   (org-tags-column 0)
-  (org-list-indent-offset 2) ;; add a little extra indent to make it look good
+  ;; (org-list-indent-offset 2) ;; add a little extra indent to make it look good
+  (org-list-indent-offset 0)
+  (org-startup-with-inline-images t) ;; show inline images
   (x-underline-at-descent-line t)
   (org-todo-keywords '((sequence "TODO(t)"
-				 "NEXT(n!/!)"
-				 "WAITING(w@!/!)"
-				 "|"
-				 "DONE(d!)"
-				 "CANCELED(c@!)")
+ 				 "NEXT(n!/!)"
+ 				 "WAITING(w@!/!)"
+ 				 "|"
+ 				 "DONE(d!)"
+ 				 "CANCELED(c@!)")
                        (sequence "INBOX(i)"
-				 "PROJECT(p)"
-				 "IDEA(I)"
-				 "NOTE(o)")))
+ 				 "PROJECT(p)"
+ 				 "IDEA(I)"
+ 				 "NOTE(o)")))
   (org-todo-keyword-faces
    '(("INBOX" . "DarkOrchid1")
      ("PROJECT" . +org-todo-test)
@@ -257,14 +272,22 @@
   (org-level-6 ((t (:height 1.1 :weight bold :background "#D4ECD4" :foreground "#000000" :overline "#000000" :underline "#000000"))))
   (org-level-7 ((t (:height 1.1 :weight bold :background "#F0C8E0" :foreground "#000000" :overline "#000000" :underline "#000000"))))
   (org-level-8 ((t (:height 1.1 :weight bold :background "#F5EAA0" :foreground "#000000" :overline "#000000" :underline "#000000"))))
+  ;; (org-level-1 ((t (:height 1.1 :weight bold :background "#F9D4A0" :foreground "#000000" ))))
+  ;; (org-level-2 ((t (:height 1.1 :weight bold :background "#EDE4FC" :foreground "#000000" ))))
+  ;; (org-level-3 ((t (:height 1.1 :weight bold :background "#FCE4C8" :foreground "#000000" ))))
+  ;; (org-level-4 ((t (:height 1.1 :weight bold :background "#C8E0F0" :foreground "#000000" ))))
+  ;; (org-level-5 ((t (:height 1.1 :weight bold :background "#FAD0B8" :foreground "#000000" ))))
+  ;; (org-level-6 ((t (:height 1.1 :weight bold :background "#D4ECD4" :foreground "#000000" ))))
+  ;; (org-level-7 ((t (:height 1.1 :weight bold :background "#F0C8E0" :foreground "#000000" ))))
+  ;; (org-level-8 ((t (:height 1.1 :weight bold :background "#F5EAA0" :foreground "#000000" ))))
   :hook
   (org-mode . (lambda ()
-            	(set-fontset-font t 'symbol (font-spec :family "Symbols Nerd Font Mono") nil 'prepend)
-            	(set-fontset-font "fontset-default" 'unicode '("Symbols Nerd Font Mono"))
-            	(setq prettify-symbols-alist '(("[ ]" . "󰄱" )
-					       ("[X]" . "󰱒")
-					       ("[-]" . "󰛲")))
-            	(prettify-symbols-mode)))
+             	(set-fontset-font t 'symbol (font-spec :family "Symbols Nerd Font Mono") nil 'prepend)
+             	(set-fontset-font "fontset-default" 'unicode '("Symbols Nerd Font Mono"))
+             	(setq prettify-symbols-alist '(("[ ]" . "󰄱" )
+ 					       ("[X]" . "󰱒")
+ 					       ("[-]" . "󰛲")))
+             	(prettify-symbols-mode)))
   :config
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -275,8 +298,11 @@
      (shell . t)
      (dot . t)
      (org . t)))
+  (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
   )
 
+;; redisplay images after executing code blocks
+(add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
 
 (with-eval-after-load 'org
   (setq org-structure-template-alist
@@ -387,6 +413,8 @@
   (require 'ox-extra)
   (ox-extras-activate '(ignore-headlines)))
 
+(setq org-plantuml-jar-path (expand-file-name "~/lsp/plantuml-1.2026.2.jar"))
+
 (use-package ultra-scroll
   :vc (:url "https://github.com/jdtsmith/ultra-scroll" :rev :newest)
   :init
@@ -431,7 +459,7 @@
   ;; (magit-status magit-get-current-branch)
   :custom
   ;; Open in the same window, not a different window
-  ;; (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
+  ;;(magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
   ;; Show character level changes
   (magit-diff-refine-hunk 'all))
 
@@ -508,15 +536,11 @@
 
     "g" '(:ignore t :wk "git TODO")
     "g s" '(magit-status :wk identity)
-    ;; gb show branches
+    "g l" '(magit-log :wk identity) ;; show branch commits by selecting "other (o)"
+    "g f" '(magit-log-buffer-file :wk identity)
+    "g b" '(magit-show-refs :wk "show branches")
     ;; gB blame?
     ;; gBl blame line?
-    ;; gc +commits
-    ;; gcc show commits
-    ;; gcb show branch commits
-    ;; gf git file past versions?
-    ;; gl git log all
-    ;; gL git log branch
 
     "h" '(:ignore t :wk "help")
     "h f" '(describe-function :wk identity)
@@ -612,3 +636,9 @@
 			     (float-time
 			      (time-subtract after-init-time before-init-time)))
 		     gcs-done)))
+
+(add-hook 'org-mode-hook
+        (lambda ()
+          (add-hook 'before-save-hook
+                    #'wr/org-add-trailing-space-to-headings
+                    nil t)))
