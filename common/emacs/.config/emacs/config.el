@@ -28,7 +28,7 @@
 (setq use-package-verbose t
       use-package-expand-minimally nil)
 
-(electric-pair-mode t)
+;; (electric-pair-mode t) ; Replaced with smartparens
 (electric-indent-mode 1)
 (show-paren-mode 1)
 (save-place-mode t)
@@ -175,14 +175,26 @@
   (load-file (expand-file-name "config.el" user-emacs-directory)))
 
 (defun wr/org-add-trailing-space-to-headings ()
-  "Ensures every org heading ends with a trailing space."
+  "Ensures every org heading ends with a trailing space, unless it ends with a tag."
   (interactive)
   (save-excursion
     (goto-char (point-min))
     (while (re-search-forward "^\\*+ " nil t)
       (end-of-line)
-      (unless (eq (char-before) ?\s)
+      (unless (or (eq (char-before) ?\s)
+		  (eq (char-before) ?:))
 	(insert " ")))))
+
+(defun wr/scroll-half-page-down ()
+  (interactive)
+  (scroll-up (/ (window-height) 2)))
+
+(defun wr/scroll-half-page-up ()
+  (interactive)
+  (scroll-down (/ (window-height) 2)))
+
+(global-set-key (kbd "C-v") #'wr/scroll-half-page-down)
+(global-set-key (kbd "M-v") #'wr/scroll-half-page-up)
 
 (use-package ef-themes
   :vc (:url "https://github.com/protesilaos/ef-themes" :rev :newest)
@@ -323,7 +335,8 @@
   :init (add-hook 'org-mode-hook 'toc-org-enable))
 
 (defface wr/org-modern-todo-todo
-  '((t :background "#FF9E9E" ;; red
+  '((t :height 1.1
+	 :background "#FF9E9E" ;; red
        :foreground "#000000"
        :box (:line-width -1 :color "#000000")))
   "Todo todo face.")
@@ -382,11 +395,11 @@
   (org-modern-replace-stars "     ")
   (org-modern-table-horizontal 3)
   (org-modern-checkbox '((?X . "󰱒")
-			 (?- . "󰛲")
-			 (?\s . "󰄱")))
+  			 (?- . "󰛲")
+  			 (?\s . "󰄱")))
   (org-modern-list '((?+ . "◦")
-		     (?- . "•")
-		     (?* . "•")))
+  		     (?- . "•")
+  		     (?* . "•")))
   (org-modern-todo-faces
    '(("TODO" . wr/org-modern-todo-todo)
      ("NEXT" . wr/org-modern-todo-next)
@@ -398,7 +411,8 @@
      ("IDEA" . wr/org-modern-todo-idea)
      ("NOTE" . wr/org-modern-todo-note)))
   :custom-face
-  (org-modern-label ((t (:inherit fixed-pitch :height 1.0 ))))
+  (org-modern-label ((t (:inherit fixed-pitch :height 1.0))))
+  (org-modern-tag ((t (:inherit fixed-pitch :foreground "#000000" :background "gray90" :height 1.0 :box (:line-width -1 :color "#000000")))))
   :hook
   (org-mode . org-modern-mode))
 
@@ -462,6 +476,11 @@
   ;;(magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
   ;; Show character level changes
   (magit-diff-refine-hunk 'all))
+
+(use-package smartparens
+  :hook (prog-mode text-mode markdown-mode org-mode)
+  :config
+  (require 'smartparens-config))
 
 (with-eval-after-load 'general
   (general-define-key

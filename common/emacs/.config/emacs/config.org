@@ -4,7 +4,7 @@
 #+STARTUP: showeverything
 #+PROPERTY: header-args :tangle yes
 
-* TOC :toc_3: 
+* TOC :toc_3:
 - [[#current-issues][Current Issues]]
 - [[#setup][Setup]]
   - [[#lexical-binding][Lexical Binding]]
@@ -28,7 +28,8 @@
   - [[#reset-font-zoom][Reset font zoom]]
   - [[#open-config-file][Open config file]]
   - [[#tangle-and-reload-config-file][Tangle and reload config file]]
-  - [[#add-trailing-space-to-all-headings-in-org-mode][Add trailing space to all headings in org mode]]
+  - [[#add-trailing-space-to-all-headings-in-org-mode-except-ones-ending-with-tags][Add trailing space to all headings in org mode except ones ending with tags]]
+  - [[#scroll-half-page][Scroll half page]]
 - [[#packages--after-hooks][Packages / After Hooks]]
   - [[#themes][Themes]]
     - [[#ef-themes][EF Themes]]
@@ -48,19 +49,21 @@
   - [[#sudo-edit][Sudo Edit]]
   - [[#hydra][Hydra]]
   - [[#magit][Magit]]
+  - [[#smartparens][Smartparens]]
   - [[#lsp][LSP]]
   - [[#packages-to-install][Packages to install]]
 - [[#keybinds][Keybinds]]
 - [[#other-hooks][Other Hooks]]
   - [[#disabled-prog-mode-line-numbers][(DISABLED) Prog Mode Line Numbers]]
   - [[#show-startup-time][Show startup time]]
+  - [[#add-trailing-spaces-to-org-mode-headings-on-save][Add trailing spaces to org mode headings on save]]
 - [[#misc][Misc]]
   - [[#disabled-emacs-server][(DISABLED) Emacs Server]]
 - [[#helpful-links][Helpful Links]]
 
 * Current Issues 
 
-- ~pixel-scroll-precision-mode~ does not work correctly with a mouse and still skips over large images. ~ultra-scroll~ did not fix it. It will only work if the window is resized at least once after opening emacs. This issue does not occur using the trackpad.
+- ~pixel-scroll-precision-mode~ does not work correctly with a mouse and still skips over large images. ~ultra-scroll~ did not fix it. It will only work if the window is resized at least once after opening emacs.
 
 
 * Setup 
@@ -179,7 +182,7 @@ Enable to turn on debugging if you get unhelpful messages like
 * Settings / Variables 
 
 #+BEGIN_SRC emacs-lisp
-  (electric-pair-mode t)
+  ;; (electric-pair-mode t) ; Replaced with smartparens
   (electric-indent-mode 1)
   (show-paren-mode 1)
   (save-place-mode t)
@@ -411,20 +414,41 @@ When navigationg using ~previous-buffer~ and ~next-buffer~, this skips the annoy
 #+END_SRC
 
 
-** Add trailing space to all headings in org mode 
+** Add trailing space to all headings in org mode except ones ending with tags 
 
 The current theme looks better when there is a space at the end of all headings. This will add spaces to the end of all headings if there isn't already a space.
 
+Need to avoid adding it to lines ending with tags, as that can mess up ones that change on save like ~:toc:~.
+
 #+begin_src emacs-lisp
   (defun wr/org-add-trailing-space-to-headings ()
-    "Ensures every org heading ends with a trailing space."
+    "Ensures every org heading ends with a trailing space, unless it ends with a tag."
     (interactive)
     (save-excursion
       (goto-char (point-min))
       (while (re-search-forward "^\\*+ " nil t)
         (end-of-line)
-        (unless (eq (char-before) ?\s)
+        (unless (or (eq (char-before) ?\s)
+  		  (eq (char-before) ?:))
   	(insert " ")))))
+#+end_src
+
+
+** Scroll half page 
+
+Rebinds ~C-v~ / ~M-v~ to scroll half a page instead of a full page.
+
+#+begin_src emacs-lisp
+  (defun wr/scroll-half-page-down ()
+    (interactive)
+    (scroll-up (/ (window-height) 2)))
+
+  (defun wr/scroll-half-page-up ()
+    (interactive)
+    (scroll-down (/ (window-height) 2)))
+
+  (global-set-key (kbd "C-v") #'wr/scroll-half-page-down)
+  (global-set-key (kbd "M-v") #'wr/scroll-half-page-up)
 #+end_src
 
 
@@ -751,8 +775,10 @@ See [[file:moderntest.org][moderntest.org]] for org modern / org mode styling te
 *** Org Modern 
 
 #+BEGIN_SRC emacs-lisp
+
   (defface wr/org-modern-todo-todo
-    '((t :background "#FF9E9E" ;; red
+    '((t :height 1.1
+  	 :background "#FF9E9E" ;; red
          :foreground "#000000"
          :box (:line-width -1 :color "#000000")))
     "Todo todo face.")
@@ -811,11 +837,11 @@ See [[file:moderntest.org][moderntest.org]] for org modern / org mode styling te
     (org-modern-replace-stars "     ")
     (org-modern-table-horizontal 3)
     (org-modern-checkbox '((?X . "󰱒")
-  			 (?- . "󰛲")
-  			 (?\s . "󰄱")))
+    			 (?- . "󰛲")
+    			 (?\s . "󰄱")))
     (org-modern-list '((?+ . "◦")
-  		     (?- . "•")
-  		     (?* . "•")))
+    		     (?- . "•")
+    		     (?* . "•")))
     (org-modern-todo-faces
      '(("TODO" . wr/org-modern-todo-todo)
        ("NEXT" . wr/org-modern-todo-next)
@@ -827,7 +853,8 @@ See [[file:moderntest.org][moderntest.org]] for org modern / org mode styling te
        ("IDEA" . wr/org-modern-todo-idea)
        ("NOTE" . wr/org-modern-todo-note)))
     :custom-face
-    (org-modern-label ((t (:inherit fixed-pitch :height 1.0 ))))
+    (org-modern-label ((t (:inherit fixed-pitch :height 1.0))))
+    (org-modern-tag ((t (:inherit fixed-pitch :foreground "#000000" :background "gray90" :height 1.0 :box (:line-width -1 :color "#000000")))))
     :hook
     (org-mode . org-modern-mode))
 #+END_SRC
@@ -939,8 +966,17 @@ This is useful if we edit a file, only to find out we needed sudo privileges.
 #+end_src
 
 
-** TODO LSP 
+** Smartparens 
 
+#+begin_src emacs-lisp
+  (use-package smartparens
+    :hook (prog-mode text-mode markdown-mode org-mode)
+    :config
+    (require 'smartparens-config))
+#+end_src
+
+
+** TODO LSP 
 
 
 
@@ -1193,7 +1229,7 @@ Use emacsclient to open files in an already-running Emacs process (TODO).
 
 
 * Helpful Links 
-
+ 
 - https://sam217pa.github.io/2016/09/23/keybindings-strategies-in-emacs/
 - https://github.com/zzamboni/dot-emacs/
 - https://orgmode.org/worg/org-contrib/babel/examples/fontify-src-code-blocks.html
