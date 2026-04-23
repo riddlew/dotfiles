@@ -75,6 +75,9 @@
 	tramp-backup-directory-alist `((".*" . ,backup-dir))
 	tramp-auto-save-directory auto-saves-dir))
 
+;; Store lock files in another directory as well
+(setq lock-file-name-transforms '((".*" "/tmp/emacs/lockfiles/" t)))
+
 (setq backup-by-copying t   ;; Don't delete hardlinks
       delete-old-versions t ;; Clean up backups
       version-control t     ;; Use version numbers on backups
@@ -89,7 +92,6 @@
 (setq default-buffer-file-coding-system 'utf-8)
 
 (setq
- ;; wr/font-mono "SFMono Nerd Font"
  wr/font-mono "JetBrainsMono Nerd Font"
  ;; wr/font-mono "Maple Mono Normal NL NF"
  wr/font-variable "SF Pro"

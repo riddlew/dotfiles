@@ -254,6 +254,9 @@ This prevents emacs from spamming files with tildes everywhere, like =~init.el=.
   	tramp-backup-directory-alist `((".*" . ,backup-dir))
   	tramp-auto-save-directory auto-saves-dir))
 
+  ;; Store lock files in another directory as well
+  (setq lock-file-name-transforms '((".*" "/tmp/emacs/lockfiles/" t)))
+
   (setq backup-by-copying t   ;; Don't delete hardlinks
         delete-old-versions t ;; Clean up backups
         version-control t     ;; Use version numbers on backups
@@ -278,7 +281,6 @@ This prevents emacs from spamming files with tildes everywhere, like =~init.el=.
 
 #+BEGIN_SRC emacs-lisp
   (setq
-   ;; wr/font-mono "SFMono Nerd Font"
    wr/font-mono "JetBrainsMono Nerd Font"
    ;; wr/font-mono "Maple Mono Normal NL NF"
    wr/font-variable "SF Pro"
